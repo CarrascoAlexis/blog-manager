@@ -19,6 +19,12 @@ function VolumeControl() {
         setVolume(volume > 0 ? 0 : 0.3);
     };
 
+    const getVolumeIcon = () => {
+        if (volume === 0) return 'volume_off';
+        if (volume < 0.5) return 'volume_down';
+        return 'volume_up';
+    };
+
     return (
         <div className="volume-control">
             <button
@@ -27,7 +33,7 @@ function VolumeControl() {
                 aria-label="Volume control"
                 title={`Volume: ${Math.round(volume * 100)}%`}
             >
-                {volume === 0 ? '🔇' : volume < 0.5 ? '🔉' : '🔊'}
+                <span className="material-symbols-outlined">{getVolumeIcon()}</span>
             </button>
             {isOpen && (
                 <div className="volume-slider-container">
@@ -46,7 +52,10 @@ function VolumeControl() {
                         onClick={toggleMute}
                         aria-label={volume > 0 ? 'Mute' : 'Unmute'}
                     >
-                        {volume > 0 ? 'Mute' : 'Unmute'}
+                        <span className="material-symbols-outlined">
+                            {volume > 0 ? 'volume_off' : 'volume_up'}
+                        </span>
+                        <span>{volume > 0 ? 'Mute' : 'Unmute'}</span>
                     </button>
                 </div>
             )}

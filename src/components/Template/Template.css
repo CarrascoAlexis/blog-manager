@@ -1,0 +1,64 @@
+/*
+  template.css — Template component styles
+
+  Purpose:
+  - Styles for the main application template layout.
+
+  Notes:
+  - Handles spacing for fixed header and footer.
+  - Colors are driven by theme variables (see `src/styles/themes.css`).
+*/
+
+.template-main {
+  min-height: 100vh;
+  padding-top: 64px;
+  padding-bottom: 56px;
+  background: var(--bg-color);
+  transition: background-color 0.3s ease;
+}
+
+.template-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Tablet responsive */
+@media (max-width: 1024px) {
+  .template-content {
+    max-width: 100%;
+    padding: 1.75rem 1.25rem;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .template-main {
+    padding-top: 56px;
+    padding-bottom: 48px;
+  }
+
+  .template-content {
+    padding: 1.5rem 1rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .template-content {
+    padding: 1rem 0.75rem;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 375px) {
+  .template-main {
+    padding-top: 52px;
+  }
+
+  .template-content {
+    padding: 0.75rem 0.5rem;
+  }
+}
