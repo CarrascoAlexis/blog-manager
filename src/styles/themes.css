@@ -1,0 +1,264 @@
+/* Theme variables and theme classes */
+:root {
+    /* Default / light */
+    --bg-color: #f9fafb;
+    --text-color: #111827;
+    --muted-color: #6b7280;
+    --accent-color: #6366f1;
+    --surface-bg: #ffffff;
+    --surface-border: #e5e7eb;
+    --hover-bg: #f9fafb;
+    --active-bg: #eef2ff;
+    --toggle-hover-bg: #f3f4f6;
+    --header-bg: #6366f1;
+    --footer-bg: #ffffff;
+}
+
+[data-theme='light'] {
+    --bg-color: #f9fafb;
+    --text-color: #111827;
+    --muted-color: #6b7280;
+    --accent-color: #6366f1;
+    --surface-bg: #ffffff;
+    --surface-border: #e5e7eb;
+    --hover-bg: #f9fafb;
+    --active-bg: #eef2ff;
+    --toggle-hover-bg: #f3f4f6;
+    --header-bg: #6366f1;
+    --footer-bg: #ffffff;
+}
+
+[data-theme='dark'] {
+    --bg-color: #111827;
+    --text-color: #f9fafb;
+    --muted-color: #9ca3af;
+    --accent-color: #818cf8;
+    --surface-bg: #1f2937;
+    --surface-border: #374151;
+    --hover-bg: #374151;
+    --active-bg: #312e81;
+    --toggle-hover-bg: #374151;
+    --header-bg: #1f2937;
+    --footer-bg: #1f2937;
+}
+
+[data-theme='halloween'] {
+    --bg-color: #0b0b0b;
+    --text-color: #ffeead;
+    --muted-color: #c0840f;
+    --accent-color: #ff6b35;
+    --surface-bg: #1b1b1b;
+    --surface-border: #4b2b2b;
+    --hover-bg: #2b1b0b;
+    --active-bg: #3b1700;
+    --toggle-hover-bg: #2b1b0b;
+    --header-bg: #1b1b1b;
+    --footer-bg: #1b1b1b;
+}
+
+[data-theme='christmass'],
+[data-theme='christmas'] {
+    --bg-color: red /*#fffaf0*/; /* warm cream */
+    --text-color: #062b14; /* deep evergreen */
+    --muted-color: #2d6a3a; /* muted green */
+    --accent-color: #c4001d; /* bright festive red */
+    --surface-bg: #ffffff;
+    --surface-border: #dfeee0;
+    --hover-bg: #f7fbf8;
+    --active-bg: #eef7ee;
+    --toggle-hover-bg: #f3faf4;
+    --header-bg: #2d6a3a;
+    --footer-bg: #ffffff;
+}
+
+[data-theme='france'] {
+    --bg-color: #ffffff;
+    --text-color: #072a60; /* deep navy for text */
+    --muted-color: #2b6fb5; /* vivid blue */
+    --accent-color: #ed2939; /* vivid red */
+    --surface-bg: #ffffff;
+    --surface-border: #e9f0ff;
+    --hover-bg: #f0f6ff;
+    --active-bg: #e6f0ff;
+    --toggle-hover-bg: #eef5ff;
+    --header-bg: #2b6fb5;
+    --footer-bg: #ffffff;
+}
+
+[data-theme='solarized'] {
+    --bg-color: #fdf6e3;
+    --text-color: #657b83;
+    --muted-color: #93a1a1;
+    --accent-color: #268bd2;
+    --surface-bg: #eee8d5;
+    --surface-border: #d3cbb7;
+    --hover-bg: #f7f1dd;
+    --active-bg: #d5e8f7;
+    --toggle-hover-bg: #f0ead8;
+    --header-bg: #268bd2;
+    --footer-bg: #eee8d5;
+}
+
+[data-theme='high-contrast'] {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --muted-color: #cccccc;
+    --accent-color: #ffff00;
+    --surface-bg: #000000;
+    --surface-border: #ffffff;
+    --hover-bg: #1a1a1a;
+    --active-bg: #333300;
+    --toggle-hover-bg: #1a1a1a;
+    --header-bg: #000000;
+    --footer-bg: #000000;
+}
+
+[data-theme='sepia'] {
+    --bg-color: #f4ecd8;
+    --text-color: #5b4636;
+    --muted-color: #8b7355;
+    --accent-color: #a0522d;
+    --surface-bg: #fff9e6;
+    --surface-border: #d4c5a9;
+    --hover-bg: #f7f0e0;
+    --active-bg: #ede4d0;
+    --toggle-hover-bg: #f0e8d5;
+    --header-bg: #a0522d;
+    --footer-bg: #fff9e6;
+}
+
+[data-theme='night-mode'] {
+    --bg-color: #0d1117;
+    --text-color: #c9d1d9;
+    --muted-color: #8b949e;
+    --accent-color: #58a6ff;
+    --surface-bg: #161b22;
+    --surface-border: #30363d;
+    --hover-bg: #21262d;
+    --active-bg: #1f6feb;
+    --toggle-hover-bg: #21262d;
+    --header-bg: #161b22;
+    --footer-bg: #161b22;
+}
+
+[data-theme='custom'] {
+    --bg-color: #f5f5f5;
+    --text-color: #333333;
+    --muted-color: #777777;
+    --accent-color: #007acc;
+    --surface-bg: #ffffff;
+    --surface-border: #dddddd;
+    --hover-bg: #eeeeee;
+    --active-bg: #d4e8f7;
+    --toggle-hover-bg: #ebebeb;
+    --header-bg: #007acc;
+    --footer-bg: #ffffff;
+}
+
+/* If user prefers dark and no explicit theme set, apply dark variables as fallback */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']):not([data-theme='dark']):not([data-theme='halloween']):not(
+            [data-theme='christmass']
+        ):not([data-theme='christmas']):not([data-theme='france']):not(
+            [data-theme='solarized']
+        ):not([data-theme='high-contrast']):not([data-theme='sepia']):not(
+            [data-theme='night-mode']
+        ):not([data-theme='custom']) {
+        --bg-color: #111827;
+        --text-color: #f9fafb;
+        --muted-color: #9ca3af;
+        --accent-color: #818cf8;
+        --surface-bg: #1f2937;
+        --surface-border: #374151;
+        --hover-bg: #374151;
+        --active-bg: #312e81;
+        --toggle-hover-bg: #374151;
+        --header-bg: #1f2937;
+        --footer-bg: #1f2937;
+    }
+}
+
+/* Apply theme to body or root element */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+/* Christmas theme snowflakes */
+[data-theme='christmass']::before,
+[data-theme='christmas']::before,
+[data-theme='christmass']::after,
+[data-theme='christmas']::after {
+    content: '';
+    position: fixed;
+    top: -10%;
+    z-index: 9999;
+    pointer-events: none;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    box-shadow:
+        0 0 5px rgba(255, 255, 255, 0.8),
+        50vw 20vh 3px 1px rgba(255, 255, 255, 0.6),
+        10vw 40vh 2px 0px rgba(255, 255, 255, 0.5),
+        70vw 60vh 3px 1px rgba(255, 255, 255, 0.7),
+        30vw 80vh 2px 0px rgba(255, 255, 255, 0.6),
+        90vw 10vh 3px 1px rgba(255, 255, 255, 0.5),
+        20vw 30vh 2px 1px rgba(255, 255, 255, 0.6),
+        60vw 50vh 3px 0px rgba(255, 255, 255, 0.7),
+        40vw 70vh 2px 1px rgba(255, 255, 255, 0.5),
+        80vw 90vh 3px 1px rgba(255, 255, 255, 0.6),
+        15vw 25vh 2px 0px rgba(255, 255, 255, 0.5),
+        75vw 45vh 3px 1px rgba(255, 255, 255, 0.7),
+        35vw 65vh 2px 1px rgba(255, 255, 255, 0.6),
+        95vw 85vh 3px 0px rgba(255, 255, 255, 0.5),
+        5vw 15vh 2px 1px rgba(255, 255, 255, 0.6),
+        65vw 35vh 3px 1px rgba(255, 255, 255, 0.7),
+        25vw 55vh 2px 0px rgba(255, 255, 255, 0.5),
+        85vw 75vh 3px 1px rgba(255, 255, 255, 0.6),
+        45vw 95vh 2px 1px rgba(255, 255, 255, 0.5),
+        55vw 5vh 3px 0px rgba(255, 255, 255, 0.7);
+    animation: snowfall 10s linear infinite;
+}
+
+[data-theme='christmass']::after,
+[data-theme='christmas']::after {
+    animation-duration: 15s;
+    /* animation-delay: 5s; */
+    box-shadow:
+        5vw 10vh 2px 0px rgba(255, 255, 255, 0.6),
+        55vw 30vh 3px 1px rgba(255, 255, 255, 0.7),
+        15vw 50vh 2px 1px rgba(255, 255, 255, 0.5),
+        75vw 70vh 3px 0px rgba(255, 255, 255, 0.6),
+        35vw 90vh 2px 1px rgba(255, 255, 255, 0.7),
+        95vw 20vh 3px 1px rgba(255, 255, 255, 0.5),
+        25vw 40vh 2px 0px rgba(255, 255, 255, 0.6),
+        65vw 60vh 3px 1px rgba(255, 255, 255, 0.7),
+        45vw 80vh 2px 1px rgba(255, 255, 255, 0.5),
+        85vw 100vh 3px 0px rgba(255, 255, 255, 0.6),
+        10vw 35vh 2px 1px rgba(255, 255, 255, 0.6),
+        70vw 55vh 3px 0px rgba(255, 255, 255, 0.7),
+        30vw 75vh 2px 1px rgba(255, 255, 255, 0.5),
+        90vw 95vh 3px 1px rgba(255, 255, 255, 0.6),
+        50vw 15vh 2px 0px rgba(255, 255, 255, 0.7),
+        20vw 45vh 3px 1px rgba(255, 255, 255, 0.5),
+        80vw 65vh 2px 1px rgba(255, 255, 255, 0.6),
+        40vw 85vh 3px 0px rgba(255, 255, 255, 0.7),
+        60vw 25vh 2px 1px rgba(255, 255, 255, 0.5),
+        0vw 55vh 3px 1px rgba(255, 255, 255, 0.6);
+}
+
+@keyframes snowfall {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh);
+        opacity: 0.8;
+    }
+}
