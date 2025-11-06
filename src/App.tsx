@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Template from './components/Template/Template';
 import VolumeControl from './components/VolumeControl/VolumeControl';
 
