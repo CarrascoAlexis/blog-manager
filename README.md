@@ -29,33 +29,33 @@ This project is built with modern web technologies:
 
 ### Core Framework
 
-- **React 18** - JavaScript library for building user interfaces
-- **TypeScript** - Typed superset of JavaScript for improved code quality
-- **Vite** - Next-generation frontend build tool for fast development
+- **[React 18](https://react.dev/)** - JavaScript library for building user interfaces
+- **[TypeScript](https://www.typescriptlang.org/)** - Typed superset of JavaScript for improved code quality
+- **[Vite](https://vitejs.dev/)** - Next-generation frontend build tool for fast development
 
 ### Routing and State
 
-- **React Router v6** - Declarative routing for React applications
+- **[React Router v6](https://reactrouter.com/)** - Declarative routing for React applications
 - **Custom Hooks** - useLocalStorage hook for persistent state management
-- **Context API** - Theme management and global state
+- **[Context API](https://react.dev/reference/react/createContext)** - Theme management and global state
 
 ### Styling
 
-- **CSS3** - Custom CSS with CSS Variables for theming
-- **Google Fonts** - Inter font family for modern typography
-- **Material Symbols** - Google Material Design icons
+- **[CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS)** - Custom CSS with CSS Variables for theming
+- **[Google Fonts](https://fonts.google.com/)** - Inter font family for modern typography
+- **[Material Symbols](https://fonts.google.com/icons)** - Google Material Design icons
 
 ### Development Tools
 
-- **ESLint** - Code linting and quality checks
-- **TypeScript Compiler** - Type checking and compilation
+- **[ESLint](https://eslint.org/)** - Code linting and quality checks
+- **[TypeScript Compiler](https://www.typescriptlang.org/docs/handbook/compiler-options.html)** - Type checking and compilation
 - **Vite HMR** - Hot Module Replacement for instant feedback
 
 ### Key Features Implementation
 
 - **Markdown Parsing** - Custom Markdown to HTML converter
-- **UUID Generation** - RFC4122 compliant unique identifiers
-- **LocalStorage API** - Browser-native persistent storage
+- **[UUID Generation](https://datatracker.ietf.org/doc/html/rfc4122)** - RFC4122 compliant unique identifiers
+- **[LocalStorage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)** - Browser-native persistent storage
 - **Responsive Design** - Mobile-first CSS with media queries
 
 ---
@@ -66,8 +66,8 @@ This project is built with modern web technologies:
 
 Before you begin, ensure you have the following installed on your system:
 
-- **Node.js** (version 18.x or higher)
-- **npm** (version 9.x or higher) or **yarn** (version 1.22.x or higher)
+- **[Node.js](https://nodejs.org/)** (version 18.x or higher)
+- **[npm](https://www.npmjs.com/)** (version 9.x or higher) or **[yarn](https://yarnpkg.com/)** (version 1.22.x or higher)
 
 ### Steps
 
@@ -213,7 +213,7 @@ This project is created as part of an educational assignment.
 
 ### Acknowledgments
 
-- Built with React (https://react.dev/)
-- Powered by Vite (https://vitejs.dev/)
-- Icons from Material Symbols (https://fonts.google.com/icons)
-- Fonts from Google Fonts (https://fonts.google.com/)
+- Built with [React](https://react.dev/)
+- Powered by [Vite](https://vitejs.dev/)
+- Icons from [Material Symbols](https://fonts.google.com/icons)
+- Fonts from [Google Fonts](https://fonts.google.com/)

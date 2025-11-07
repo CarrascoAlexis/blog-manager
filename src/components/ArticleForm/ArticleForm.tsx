@@ -2,24 +2,37 @@ import { useState, useRef } from 'react';
 import type { category } from '../../shared/interfaces';
 import './ArticleForm.css';
 
+/**
+ * Interface for article form data
+ * Used for both creating new articles and editing existing ones
+ */
 export interface ArticleFormData {
-    title: string;
-    excerpt: string;
-    author: string;
-    categoryId: string;
-    readTime: string;
-    content: string;
+    title: string;       // Article title
+    excerpt: string;     // Short summary
+    author: string;      // Author name
+    categoryId: string;  // ID of selected category
+    readTime: string;    // Estimated read time
+    content: string;     // Markdown content
 }
 
+/**
+ * Props interface for ArticleForm component
+ */
 interface ArticleFormProps {
-    formData: ArticleFormData;
-    categories: category[];
-    onSubmit: (data: ArticleFormData) => void;
-    onCancel?: () => void;
-    submitLabel?: string;
-    showCancel?: boolean;
+    formData: ArticleFormData;                 // Initial form values
+    categories: category[];                    // Available categories for dropdown
+    onSubmit: (data: ArticleFormData) => void; // Callback when form is submitted
+    onCancel?: () => void;                     // Optional callback when form is cancelled
+    submitLabel?: string;                      // Custom submit button text
+    showCancel?: boolean;                      // Whether to show cancel button
 }
 
+/**
+ * ArticleForm component - Reusable form for creating and editing articles
+ * Provides Markdown toolbar for content formatting and validation
+ * 
+ * @param {ArticleFormProps} props - Component props
+ */
 function ArticleForm({ 
     formData: initialFormData, 
     categories, 
@@ -28,10 +41,17 @@ function ArticleForm({
     submitLabel = 'Publish Article',
     showCancel = false
 }: ArticleFormProps) {
+    // Reference to content textarea for Markdown insertion
     const contentTextareaRef = useRef<HTMLTextAreaElement>(null);
+    // Form state
     const [formData, setFormData] = useState<ArticleFormData>(initialFormData);
+    // Validation errors
     const [errors, setErrors] = useState<Record<string, string>>({});
 
+    /**
+     * Handle input changes for all form fields
+     * Clears validation errors when user starts typing
+     */
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
@@ -42,6 +62,12 @@ function ArticleForm({
         }
     };
 
+    /**
+     * Insert Markdown syntax at cursor position or around selected text
+     * @param {string} before - Text to insert before cursor/selection
+     * @param {string} after - Text to insert after cursor/selection
+     * @param {string} placeholder - Default text if nothing is selected
+     */
     const insertMarkdown = (before: string, after: string = '', placeholder: string = '') => {
         const textarea = contentTextareaRef.current;
         if (!textarea) return;
@@ -51,6 +77,7 @@ function ArticleForm({
         const selectedText = formData.content.substring(start, end);
         const textToInsert = selectedText || placeholder;
         
+        // Build new text with markdown inserted
         const newText = 
             formData.content.substring(0, start) +
             before + textToInsert + after +
@@ -58,7 +85,7 @@ function ArticleForm({
 
         setFormData(prev => ({ ...prev, content: newText }));
 
-        // Set cursor position after insertion
+        // Set cursor position after insertion (after the inserted text)
         setTimeout(() => {
             textarea.focus();
             const newPosition = start + before.length + textToInsert.length;
@@ -66,21 +93,41 @@ function ArticleForm({
         }, 0);
     };
 
+    // Markdown formatting helper functions
+    
+    /**
+     * Insert heading markdown (# for h1, ## for h2, etc.)
+     * @param {number} level - Heading level (1-6)
+     */
     const insertHeading = (level: number) => {
         const hashes = '#'.repeat(level);
         insertMarkdown(`${hashes} `, '', 'Heading');
     };
 
+    /** Insert bold markdown (**text**) */
     const insertBold = () => insertMarkdown('**', '**', 'bold text');
+    
+    /** Insert italic markdown (*text*) */
     const insertItalic = () => insertMarkdown('*', '*', 'italic text');
+    
+    /** Insert inline code markdown (`code`) */
     const insertCode = () => insertMarkdown('`', '`', 'code');
+    
+    /** Insert link markdown ([text](url)) */
     const insertLink = () => insertMarkdown('[', '](url)', 'link text');
+    
+    /** Insert image markdown (![alt](url)) */
     const insertImage = () => insertMarkdown('![', '](image-url)', 'alt text');
     
+    /** Insert code block markdown (```code```) */
     const insertCodeBlock = () => {
         insertMarkdown('\n```\n', '\n```\n', 'code here');
     };
 
+    /**
+     * Insert unordered list markdown
+     * Converts each line of selected text to a list item
+     */
     const insertList = () => {
         const textarea = contentTextareaRef.current;
         if (!textarea) return;
@@ -89,6 +136,7 @@ function ArticleForm({
         const end = textarea.selectionEnd;
         const selectedText = formData.content.substring(start, end);
         
+        // Split into lines and prefix each with "- "
         const lines = selectedText.split('\n');
         const listText = lines.map(line => `- ${line || 'Item'}`).join('\n');
         
@@ -100,8 +148,13 @@ function ArticleForm({
         setFormData(prev => ({ ...prev, content: newText }));
     };
 
+    /** Insert blockquote markdown (> text) */
     const insertQuote = () => insertMarkdown('> ', '', 'Quote text');
 
+    /**
+     * Insert table template markdown
+     * Creates a 3x3 table with headers
+     */
     const insertTable = () => {
         const tableTemplate = `
 | Header 1 | Header 2 | Header 3 |
@@ -121,9 +174,14 @@ function ArticleForm({
         setFormData(prev => ({ ...prev, content: newText }));
     };
 
+    /**
+     * Validate form fields
+     * @returns {boolean} - True if form is valid, false otherwise
+     */
     const validateForm = (): boolean => {
         const newErrors: Record<string, string> = {};
 
+        // Check all required fields
         if (!formData.title.trim()) {
             newErrors.title = 'Title is required';
         }
@@ -152,9 +210,14 @@ function ArticleForm({
         return Object.keys(newErrors).length === 0;
     };
 
+    /**
+     * Handle form submission
+     * Validates form and calls onSubmit callback if valid
+     */
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
+        // Validate before submitting
         if (!validateForm()) {
             return;
         }
@@ -164,6 +227,7 @@ function ArticleForm({
 
     return (
         <form className="article-form" onSubmit={handleSubmit}>
+            {/* Title field */}
             <div className="form-row">
                 <div className="form-group">
                     <label htmlFor="title">
@@ -178,10 +242,12 @@ function ArticleForm({
                         className={errors.title ? 'error' : ''}
                         placeholder="Enter article title"
                     />
+                    {/* Show error message if validation failed */}
                     {errors.title && <span className="error-message">{errors.title}</span>}
                 </div>
             </div>
 
+            {/* Excerpt field */}
             <div className="form-row">
                 <div className="form-group">
                     <label htmlFor="excerpt">
@@ -200,7 +266,9 @@ function ArticleForm({
                 </div>
             </div>
 
+            {/* Author and Read Time row (two columns) */}
             <div className="form-row two-cols">
+                {/* Author field */}
                 <div className="form-group">
                     <label htmlFor="author">
                         Author <span className="required">*</span>
@@ -217,6 +285,7 @@ function ArticleForm({
                     {errors.author && <span className="error-message">{errors.author}</span>}
                 </div>
 
+                {/* Read time field */}
                 <div className="form-group">
                     <label htmlFor="readTime">
                         Read Time <span className="required">*</span>
@@ -234,6 +303,7 @@ function ArticleForm({
                 </div>
             </div>
 
+            {/* Category dropdown */}
             <div className="form-row">
                 <div className="form-group">
                     <label htmlFor="categoryId">
@@ -247,6 +317,7 @@ function ArticleForm({
                         className={errors.categoryId ? 'error' : ''}
                     >
                         <option value="">Select a category</option>
+                        {/* Render option for each available category */}
                         {categories.map(cat => (
                             <option key={cat.id} value={cat.id}>
                                 {cat.name}
@@ -257,6 +328,7 @@ function ArticleForm({
                 </div>
             </div>
 
+            {/* Content field with Markdown toolbar */}
             <div className="form-row">
                 <div className="form-group">
                     <label htmlFor="content">
@@ -264,7 +336,9 @@ function ArticleForm({
                         <span className="label-hint">Supports Markdown</span>
                     </label>
 
+                    {/* Markdown formatting toolbar with Material icons */}
                     <div className="markdown-toolbar">
+                        {/* Heading buttons */}
                         <button type="button" onClick={() => insertHeading(1)} title="Heading 1">
                             <span className="material-symbols-outlined">format_h1</span>
                         </button>
@@ -275,6 +349,7 @@ function ArticleForm({
                             <span className="material-symbols-outlined">format_h3</span>
                         </button>
                         <div className="toolbar-divider"></div>
+                        {/* Text formatting buttons */}
                         <button type="button" onClick={insertBold} title="Bold">
                             <span className="material-symbols-outlined">format_bold</span>
                         </button>
@@ -285,6 +360,7 @@ function ArticleForm({
                             <span className="material-symbols-outlined">code</span>
                         </button>
                         <div className="toolbar-divider"></div>
+                        {/* Link and image buttons */}
                         <button type="button" onClick={insertLink} title="Link">
                             <span className="material-symbols-outlined">link</span>
                         </button>
@@ -292,6 +368,7 @@ function ArticleForm({
                             <span className="material-symbols-outlined">image</span>
                         </button>
                         <div className="toolbar-divider"></div>
+                        {/* Block element buttons */}
                         <button type="button" onClick={insertList} title="List">
                             <span className="material-symbols-outlined">format_list_bulleted</span>
                         </button>
@@ -306,6 +383,7 @@ function ArticleForm({
                         </button>
                     </div>
 
+                    {/* Content textarea - ref used for cursor positioning */}
                     <textarea
                         ref={contentTextareaRef}
                         id="content"
@@ -320,12 +398,15 @@ function ArticleForm({
                 </div>
             </div>
 
+            {/* Form action buttons */}
             <div className="form-actions">
+                {/* Cancel button - only shown if showCancel prop is true */}
                 {showCancel && onCancel && (
                     <button type="button" onClick={onCancel} className="btn-secondary">
                         Cancel
                     </button>
                 )}
+                {/* Submit button with custom label */}
                 <button type="submit" className="btn-primary">
                     <span className="material-symbols-outlined">publish</span>
                     {submitLabel}

@@ -294,6 +294,16 @@
   border-radius: 8px;
   font-size: 0.9375rem;
   font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.tech-tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  background: var(--accent-color);
+  filter: brightness(1.1);
 }
 
 /* CTA Section */

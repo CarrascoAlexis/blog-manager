@@ -3,26 +3,46 @@ import type { Article, category } from '../../shared/interfaces';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import './EditArticleModal.css';
 
+/**
+ * Props interface for EditArticleModal component
+ */
 interface EditArticleModalProps {
-    article: Article;
-    isOpen: boolean;
-    onClose: () => void;
-    onSave: (updatedArticle: Article) => void;
+    article: Article;                         // Article to edit
+    isOpen: boolean;                          // Whether modal is visible
+    onClose: () => void;                      // Callback to close modal
+    onSave: (updatedArticle: Article) => void; // Callback to save changes
 }
 
+/**
+ * EditArticleModal component - Modal dialog for editing existing articles
+ * Similar to ArticleForm but works within a modal and handles Article objects
+ * instead of ArticleFormData
+ * 
+ * @param {EditArticleModalProps} props - Component props
+ */
 function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModalProps) {
+    // Load categories from localStorage
     const [categories] = useLocalStorage<category[]>('blog-categories', []);
+    // Form state - initialized with article data
     const [formData, setFormData] = useState<Article>(article);
+    // Validation errors
     const [errors, setErrors] = useState<Record<string, string>>({});
+    // Reference to content textarea for Markdown insertion
     const contentTextareaRef = useRef<HTMLTextAreaElement>(null);
 
+    // Update form data when article prop changes
     useEffect(() => {
         setFormData(article);
     }, [article]);
 
+    /**
+     * Handle input changes for all form fields
+     * Special handling for category selection to update full category object
+     */
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         
+        // Special handling for category selection
         if (name === 'categoryId') {
             const selectedCategory = categories.find(cat => cat.id === value);
             if (selectedCategory) {
@@ -32,11 +52,18 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
             setFormData(prev => ({ ...prev, [name]: value }));
         }
         
+        // Clear error when user starts typing
         if (errors[name]) {
             setErrors(prev => ({ ...prev, [name]: '' }));
         }
     };
 
+    /**
+     * Insert Markdown syntax at cursor position or around selected text
+     * @param {string} before - Text to insert before cursor/selection
+     * @param {string} after - Text to insert after cursor/selection
+     * @param {string} placeholder - Default text if nothing is selected
+     */
     const insertMarkdown = (before: string, after: string = '', placeholder: string = '') => {
         const textarea = contentTextareaRef.current;
         if (!textarea) return;
@@ -53,6 +80,7 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
 
         setFormData(prev => ({ ...prev, content: newText }));
 
+        // Set cursor position after insertion
         setTimeout(() => {
             textarea.focus();
             const newPosition = start + before.length + textToInsert.length;
@@ -60,20 +88,17 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
         }, 0);
     };
 
+    // Markdown formatting helper functions (same as ArticleForm)
     const insertHeading = (level: number) => {
         const hashes = '#'.repeat(level);
         insertMarkdown(`${hashes} `, '', 'Heading');
     };
-
     const insertBold = () => insertMarkdown('**', '**', 'bold text');
     const insertItalic = () => insertMarkdown('*', '*', 'italic text');
     const insertCode = () => insertMarkdown('`', '`', 'code');
     const insertLink = () => insertMarkdown('[', '](url)', 'link text');
     const insertImage = () => insertMarkdown('![', '](image-url)', 'alt text');
-    
-    const insertCodeBlock = () => {
-        insertMarkdown('\n```\n', '\n```\n', 'code here');
-    };
+    const insertCodeBlock = () => insertMarkdown('\n```\n', '\n```\n', 'code here');
 
     const insertList = () => {
         const textarea = contentTextareaRef.current;
@@ -115,9 +140,14 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
         setFormData(prev => ({ ...prev, content: newText }));
     };
 
+    /**
+     * Handle form submission
+     * Validates form and saves updated article with updatedAt timestamp
+     */
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         
+        // Validate all required fields
         const newErrors: Record<string, string> = {};
         
         if (!formData.title.trim()) newErrors.title = 'Title is required';
@@ -132,6 +162,7 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
             return;
         }
 
+        // Create updated article with new timestamp
         const updatedArticle: Article = {
             ...formData,
             updatedAt: new Date().toISOString()
@@ -141,22 +172,30 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
         onClose();
     };
 
+    // Don't render modal if it's not open
+    // Don't render modal if it's not open
     if (!isOpen) return null;
 
     return (
+        // Modal overlay - clicking it closes modal
         <div className="modal-overlay" onClick={onClose}>
+            {/* Modal content - stops click propagation to prevent closing when clicking inside */}
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                {/* Modal header with title and close button */}
                 <div className="modal-header">
                     <h2 className="modal-title">
                         <span className="material-symbols-outlined">edit</span>
                         Edit Article
                     </h2>
+                    {/* Close button (X) */}
                     <button className="modal-close" onClick={onClose}>
                         <span className="material-symbols-outlined">close</span>
                     </button>
                 </div>
 
+                {/* Edit form - similar structure to ArticleForm */}
                 <form onSubmit={handleSubmit} className="modal-form">
+                    {/* Title field */}
                     <div className="form-group">
                         <label htmlFor="title" className="form-label">Title *</label>
                         <input
