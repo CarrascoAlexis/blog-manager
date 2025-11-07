@@ -40,10 +40,10 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
         // Apply theme to document root for CSS variables
         document.documentElement.setAttribute('data-theme', theme);
 
-        // Map of themes to their music files
+        // Map of themes to their music files (in public folder)
         const musicFiles: Record<string, string> = {
-            christmass: '/src/assets/musics/all_i_want_for_christmas_is_you.mp3',
-            halloween: '/src/assets/musics/this_is_halloween.mp3',
+            christmass: '/musics/all_i_want_for_christmas_is_you.mp3',
+            halloween: '/musics/this_is_halloween.mp3',
         };
 
         const musicFile = musicFiles[theme];
