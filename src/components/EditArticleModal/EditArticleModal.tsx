@@ -173,28 +173,33 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
     };
 
     // Don't render modal if it's not open
-    // Don't render modal if it's not open
     if (!isOpen) return null;
 
     return (
         // Modal overlay - clicking it closes modal
-        <div className="modal-overlay" onClick={onClose}>
+        <div 
+            className="modal-overlay" 
+            onClick={onClose}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="edit-modal-title"
+        >
             {/* Modal content - stops click propagation to prevent closing when clicking inside */}
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 {/* Modal header with title and close button */}
                 <div className="modal-header">
-                    <h2 className="modal-title">
-                        <span className="material-symbols-outlined">edit</span>
+                    <h2 id="edit-modal-title" className="modal-title">
+                        <span className="material-symbols-outlined" aria-hidden="true">edit</span>
                         Edit Article
                     </h2>
                     {/* Close button (X) */}
-                    <button className="modal-close" onClick={onClose}>
-                        <span className="material-symbols-outlined">close</span>
+                    <button className="modal-close" onClick={onClose} aria-label="Close edit modal">
+                        <span className="material-symbols-outlined" aria-hidden="true">close</span>
                     </button>
                 </div>
 
                 {/* Edit form - similar structure to ArticleForm */}
-                <form onSubmit={handleSubmit} className="modal-form">
+                <form onSubmit={handleSubmit} className="modal-form" aria-label="Edit article form">
                     {/* Title field */}
                     <div className="form-group">
                         <label htmlFor="title" className="form-label">Title *</label>
@@ -206,8 +211,11 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
                             onChange={handleChange}
                             className={`form-input ${errors.title ? 'error' : ''}`}
                             placeholder="Article title"
+                            aria-required="true"
+                            aria-invalid={!!errors.title}
+                            aria-describedby={errors.title ? 'title-error' : undefined}
                         />
-                        {errors.title && <span className="error-message">{errors.title}</span>}
+                        {errors.title && <span id="title-error" className="error-message" role="alert">{errors.title}</span>}
                     </div>
 
                     <div className="form-group">
@@ -220,8 +228,11 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
                             className={`form-textarea ${errors.excerpt ? 'error' : ''}`}
                             rows={3}
                             placeholder="Brief description of the article"
+                            aria-required="true"
+                            aria-invalid={!!errors.excerpt}
+                            aria-describedby={errors.excerpt ? 'excerpt-error' : undefined}
                         />
-                        {errors.excerpt && <span className="error-message">{errors.excerpt}</span>}
+                        {errors.excerpt && <span id="excerpt-error" className="error-message" role="alert">{errors.excerpt}</span>}
                     </div>
 
                     <div className="form-row">
@@ -235,8 +246,11 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
                                 onChange={handleChange}
                                 className={`form-input ${errors.author ? 'error' : ''}`}
                                 placeholder="Your name"
+                                aria-required="true"
+                                aria-invalid={!!errors.author}
+                                aria-describedby={errors.author ? 'author-error' : undefined}
                             />
-                            {errors.author && <span className="error-message">{errors.author}</span>}
+                            {errors.author && <span id="author-error" className="error-message" role="alert">{errors.author}</span>}
                         </div>
 
                         <div className="form-group">
@@ -247,6 +261,9 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
                                 value={formData.category.id}
                                 onChange={handleChange}
                                 className={`form-select ${errors.categoryId ? 'error' : ''}`}
+                                aria-required="true"
+                                aria-invalid={!!errors.categoryId}
+                                aria-describedby={errors.categoryId ? 'category-error' : undefined}
                             >
                                 <option value="">Select a category</option>
                                 {categories.map(cat => (
@@ -255,7 +272,7 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
                                     </option>
                                 ))}
                             </select>
-                            {errors.categoryId && <span className="error-message">{errors.categoryId}</span>}
+                            {errors.categoryId && <span id="category-error" className="error-message" role="alert">{errors.categoryId}</span>}
                         </div>
 
                         <div className="form-group">
@@ -268,8 +285,11 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
                                 onChange={handleChange}
                                 className={`form-input ${errors.readTime ? 'error' : ''}`}
                                 placeholder="e.g., 5 min read"
+                                aria-required="true"
+                                aria-invalid={!!errors.readTime}
+                                aria-describedby={errors.readTime ? 'readtime-error' : undefined}
                             />
-                            {errors.readTime && <span className="error-message">{errors.readTime}</span>}
+                            {errors.readTime && <span id="readtime-error" className="error-message" role="alert">{errors.readTime}</span>}
                         </div>
                     </div>
 
@@ -277,45 +297,45 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
                         <label htmlFor="content" className="form-label">
                             Content * <span className="label-hint">(Markdown supported)</span>
                         </label>
-                        <div className="formatting-toolbar">
-                            <button type="button" onClick={() => insertHeading(1)} title="Heading 1" className="toolbar-btn">
-                                <span className="material-symbols-outlined">format_h1</span>
+                        <div className="formatting-toolbar" role="toolbar" aria-label="Text formatting tools">
+                            <button type="button" onClick={() => insertHeading(1)} title="Heading 1" className="toolbar-btn" aria-label="Insert heading level 1">
+                                <span className="material-symbols-outlined" aria-hidden="true">format_h1</span>
                             </button>
-                            <button type="button" onClick={() => insertHeading(2)} title="Heading 2" className="toolbar-btn">
-                                <span className="material-symbols-outlined">format_h2</span>
+                            <button type="button" onClick={() => insertHeading(2)} title="Heading 2" className="toolbar-btn" aria-label="Insert heading level 2">
+                                <span className="material-symbols-outlined" aria-hidden="true">format_h2</span>
                             </button>
-                            <button type="button" onClick={() => insertHeading(3)} title="Heading 3" className="toolbar-btn">
-                                <span className="material-symbols-outlined">format_h3</span>
+                            <button type="button" onClick={() => insertHeading(3)} title="Heading 3" className="toolbar-btn" aria-label="Insert heading level 3">
+                                <span className="material-symbols-outlined" aria-hidden="true">format_h3</span>
                             </button>
-                            <div className="toolbar-divider"></div>
-                            <button type="button" onClick={insertBold} title="Bold" className="toolbar-btn">
-                                <span className="material-symbols-outlined">format_bold</span>
+                            <div className="toolbar-divider" role="separator" aria-hidden="true"></div>
+                            <button type="button" onClick={insertBold} title="Bold" className="toolbar-btn" aria-label="Insert bold text">
+                                <span className="material-symbols-outlined" aria-hidden="true">format_bold</span>
                             </button>
-                            <button type="button" onClick={insertItalic} title="Italic" className="toolbar-btn">
-                                <span className="material-symbols-outlined">format_italic</span>
+                            <button type="button" onClick={insertItalic} title="Italic" className="toolbar-btn" aria-label="Insert italic text">
+                                <span className="material-symbols-outlined" aria-hidden="true">format_italic</span>
                             </button>
-                            <button type="button" onClick={insertCode} title="Inline Code" className="toolbar-btn">
-                                <span className="material-symbols-outlined">code</span>
+                            <button type="button" onClick={insertCode} title="Inline Code" className="toolbar-btn" aria-label="Insert inline code">
+                                <span className="material-symbols-outlined" aria-hidden="true">code</span>
                             </button>
-                            <button type="button" onClick={insertCodeBlock} title="Code Block" className="toolbar-btn">
-                                <span className="material-symbols-outlined">code_blocks</span>
+                            <button type="button" onClick={insertCodeBlock} title="Code Block" className="toolbar-btn" aria-label="Insert code block">
+                                <span className="material-symbols-outlined" aria-hidden="true">code_blocks</span>
                             </button>
-                            <div className="toolbar-divider"></div>
-                            <button type="button" onClick={insertLink} title="Link" className="toolbar-btn">
-                                <span className="material-symbols-outlined">link</span>
+                            <div className="toolbar-divider" role="separator" aria-hidden="true"></div>
+                            <button type="button" onClick={insertLink} title="Link" className="toolbar-btn" aria-label="Insert hyperlink">
+                                <span className="material-symbols-outlined" aria-hidden="true">link</span>
                             </button>
-                            <button type="button" onClick={insertImage} title="Image" className="toolbar-btn">
-                                <span className="material-symbols-outlined">image</span>
+                            <button type="button" onClick={insertImage} title="Image" className="toolbar-btn" aria-label="Insert image">
+                                <span className="material-symbols-outlined" aria-hidden="true">image</span>
                             </button>
-                            <div className="toolbar-divider"></div>
-                            <button type="button" onClick={insertList} title="Bullet List" className="toolbar-btn">
-                                <span className="material-symbols-outlined">format_list_bulleted</span>
+                            <div className="toolbar-divider" role="separator" aria-hidden="true"></div>
+                            <button type="button" onClick={insertList} title="Bullet List" className="toolbar-btn" aria-label="Insert bullet list">
+                                <span className="material-symbols-outlined" aria-hidden="true">format_list_bulleted</span>
                             </button>
-                            <button type="button" onClick={insertQuote} title="Quote" className="toolbar-btn">
-                                <span className="material-symbols-outlined">format_quote</span>
+                            <button type="button" onClick={insertQuote} title="Quote" className="toolbar-btn" aria-label="Insert quote">
+                                <span className="material-symbols-outlined" aria-hidden="true">format_quote</span>
                             </button>
-                            <button type="button" onClick={insertTable} title="Table" className="toolbar-btn">
-                                <span className="material-symbols-outlined">table</span>
+                            <button type="button" onClick={insertTable} title="Table" className="toolbar-btn" aria-label="Insert table">
+                                <span className="material-symbols-outlined" aria-hidden="true">table</span>
                             </button>
                         </div>
                         <textarea
@@ -327,16 +347,19 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
                             className={`form-textarea content-textarea ${errors.content ? 'error' : ''}`}
                             placeholder="Write your article content in Markdown format..."
                             rows={15}
+                            aria-required="true"
+                            aria-invalid={!!errors.content}
+                            aria-describedby={errors.content ? 'content-error' : undefined}
                         />
-                        {errors.content && <span className="error-message">{errors.content}</span>}
+                        {errors.content && <span id="content-error" className="error-message" role="alert">{errors.content}</span>}
                     </div>
 
                     <div className="modal-actions">
-                        <button type="button" onClick={onClose} className="btn-secondary">
+                        <button type="button" onClick={onClose} className="btn-secondary" aria-label="Cancel editing">
                             Cancel
                         </button>
-                        <button type="submit" className="btn-primary">
-                            <span className="material-symbols-outlined">save</span>
+                        <button type="submit" className="btn-primary" aria-label="Save article changes">
+                            <span className="material-symbols-outlined" aria-hidden="true">save</span>
                             Save Changes
                         </button>
                     </div>

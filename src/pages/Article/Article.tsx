@@ -1,5 +1,5 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Article as ArticleType } from '../../shared/interfaces';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import ArticleHeader from '../../components/ArticleHeader/ArticleHeader';
@@ -27,6 +27,15 @@ function Article() {
     
     // Find the article with matching ID
     const article = articles.find(a => a.id === id);
+
+    // Set page title based on article
+    useEffect(() => {
+        if (article) {
+            document.title = `${article.title} - Blog Manager`;
+        } else {
+            document.title = 'Article Not Found - Blog Manager';
+        }
+    }, [article]);
 
     /**
      * Save updated article to localStorage
@@ -63,27 +72,27 @@ function Article() {
     return (
         <div className="article-page">
             {/* Action buttons row */}
-            <div className="article-actions">
+            <nav className="article-actions" aria-label="Article actions">
                 {/* Back to articles link */}
-                <Link to="/articles" className="back-link">
-                    <span className="material-symbols-outlined">arrow_back</span>
+                <Link to="/articles" className="back-link" aria-label="Return to articles list">
+                    <span className="material-symbols-outlined" aria-hidden="true">arrow_back</span>
                     Back to Articles
                 </Link>
 
                 {/* Edit and Delete buttons */}
                 <div className="action-buttons">
                     {/* Edit button - opens edit modal */}
-                    <button className="edit-btn" onClick={() => setIsEditModalOpen(true)}>
-                        <span className="material-symbols-outlined">edit</span>
+                    <button className="edit-btn" onClick={() => setIsEditModalOpen(true)} aria-label="Edit this article">
+                        <span className="material-symbols-outlined" aria-hidden="true">edit</span>
                         Edit
                     </button>
                     {/* Delete button - opens confirmation modal */}
-                    <button className="delete-btn" onClick={() => setIsDeleteModalOpen(true)}>
-                        <span className="material-symbols-outlined">delete</span>
+                    <button className="delete-btn" onClick={() => setIsDeleteModalOpen(true)} aria-label="Delete this article">
+                        <span className="material-symbols-outlined" aria-hidden="true">delete</span>
                         Delete
                     </button>
                 </div>
-            </div>
+            </nav>
 
             {/* Article content */}
             <article className="article-detail">

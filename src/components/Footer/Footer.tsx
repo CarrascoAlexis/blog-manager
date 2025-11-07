@@ -37,14 +37,14 @@ function Footer() {
     };
 
     return (
-        <footer className="footer">
+        <footer className="footer" role="contentinfo">
             {/* Halloween theme decorations - only visible when Halloween theme active */}
             {isHalloween && (
-                <>
+                <div role="presentation" aria-hidden="true">
                     {/* Spider webs in top corners */}
                     <div className="spider-web top-left">
                         {/* SVG spider web graphic */}
-                        <svg viewBox="0 0 100 100" className="web-svg">
+                        <svg viewBox="0 0 100 100" className="web-svg" aria-hidden="true">
                             <path d="M0,0 L50,50 M0,20 Q25,25 50,50 M0,40 Q25,42 50,50 M20,0 Q25,25 50,50 M40,0 Q42,25 50,50" 
                                   stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" fill="none"/>
                         </svg>
@@ -52,7 +52,7 @@ function Footer() {
                         <div className="spider spider-1"></div>
                     </div>
                     <div className="spider-web top-right">
-                        <svg viewBox="0 0 100 100" className="web-svg">
+                        <svg viewBox="0 0 100 100" className="web-svg" aria-hidden="true">
                             <path d="M100,0 L50,50 M100,20 Q75,25 50,50 M100,40 Q75,42 50,50 M80,0 Q75,25 50,50 M60,0 Q58,25 50,50" 
                                   stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" fill="none"/>
                         </svg>
@@ -61,31 +61,34 @@ function Footer() {
                     
                     {/* Interactive clickable pumpkins */}
                     <div className="halloween-pumpkins">
-                        <div 
+                        <button 
                             className={`pumpkin pumpkin-1 ${clickedPumpkin === 1 ? 'pumpkin-clicked' : ''}`}
                             onClick={() => handlePumpkinClick(1)}
+                            aria-label="Decorative pumpkin 1"
                         >
                             🎃
-                        </div>
-                        <div 
+                        </button>
+                        <button 
                             className={`pumpkin pumpkin-2 ${clickedPumpkin === 2 ? 'pumpkin-clicked' : ''}`}
                             onClick={() => handlePumpkinClick(2)}
+                            aria-label="Decorative pumpkin 2"
                         >
                             🎃
-                        </div>
-                        <div 
+                        </button>
+                        <button 
                             className={`pumpkin pumpkin-3 ${clickedPumpkin === 3 ? 'pumpkin-clicked' : ''}`}
                             onClick={() => handlePumpkinClick(3)}
+                            aria-label="Decorative pumpkin 3"
                         >
                             🎃
-                        </div>
+                        </button>
                     </div>
-                </>
+                </div>
             )}
 
             {/* Christmas theme decorations - only visible when Christmas theme active */}
             {isChristmas && (
-                <>
+                <div role="presentation" aria-hidden="true">
                     {/* Decorative garland across top */}
                     <div className="christmas-garland">
                         <div className="garland-strand"></div>
@@ -100,17 +103,18 @@ function Footer() {
                     
                     {/* Christmas tree on left side */}
                     <div className="christmas-tree">
-                        <div 
+                        <button 
                             className={`tree-star ${isStarClicked ? 'star-clicked' : ''}`}
                             onClick={handleStarClick}
+                            aria-label="Decorative Christmas tree star"
                         >
                             ⭐
-                        </div>
+                        </button>
                         <div className="tree-top">🌲</div>
                     </div>
 
                     {/* Falling snowflakes */}
-                    <div className="snowflakes">
+                    <div className="snowflakes" aria-hidden="true">
                         <div className="snowflake snowflake-1">❄️</div>
                         <div className="snowflake snowflake-2">❅</div>
                         <div className="snowflake snowflake-3">❆</div>
@@ -127,7 +131,7 @@ function Footer() {
                         <div className="snowflake snowflake-14">❅</div>
                         <div className="snowflake snowflake-15">❆</div>
                     </div>
-                </>
+                </div>
             )}
             
             <div className="footer-content">

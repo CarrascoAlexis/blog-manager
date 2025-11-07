@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import type { Article, category } from '../../shared/interfaces';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import ArticleForm, { type ArticleFormData } from '../../components/ArticleForm/ArticleForm';
@@ -15,6 +16,11 @@ function NewArticle() {
     const [articles, setArticles] = useLocalStorage<Article[]>('blog-articles', []);
     // Load available categories from localStorage
     const [categories] = useLocalStorage<category[]>('blog-categories', []);
+    
+    // Set page title
+    useEffect(() => {
+        document.title = 'Create New Article - Blog Manager';
+    }, []);
     
     // Initial empty form data
     const initialFormData: ArticleFormData = {
@@ -77,15 +83,15 @@ function NewArticle() {
     return (
         <div className="new-article-page">
             {/* Page header */}
-            <div className="new-article-header">
+            <header className="new-article-header">
                 <h1 className="new-article-title">
-                    <span className="material-symbols-outlined">edit_note</span>
+                    <span className="material-symbols-outlined" aria-hidden="true">edit_note</span>
                     Create New Article
                 </h1>
                 <p className="new-article-subtitle">
                     Share your knowledge with the world
                 </p>
-            </div>
+            </header>
 
             {/* Article creation form */}
             <div className="form-container">

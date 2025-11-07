@@ -10,6 +10,8 @@ import App from './App';
 import { ThemeProvider } from './contexts/ThemeContext';
 // Global theme CSS variables and styles
 import './styles/themes.css';
+// Accessibility utilities and styles
+import './styles/accessibility.css';
 
 // Create React root and render the application
 // Non-null assertion (!) used because we know 'root' element exists in index.html

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Article } from '../../shared/interfaces';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import SearchBar from '../../components/SearchBar/SearchBar';
@@ -20,6 +20,11 @@ function Articles() {
     const [selectedCategory, setSelectedCategory] = useState('All');
     // Track current sort option
     const [sortBy, setSortBy] = useState<SortOption>('date-newest');
+
+    // Set page title
+    useEffect(() => {
+        document.title = 'Articles - Blog Manager';
+    }, []);
 
     // Extract unique categories from articles and prepend 'All' option
     const categories = ['All', ...new Set(articles.map(article => article.category.name))];
@@ -58,18 +63,18 @@ function Articles() {
     return (
         <div className="articles-page">
             {/* Page header with title and description */}
-            <div className="articles-header">
+            <header className="articles-header">
                 <h1 className="articles-title">
-                    <span className="material-symbols-outlined">article</span>
+                    <span className="material-symbols-outlined" aria-hidden="true">article</span>
                     Articles
                 </h1>
                 <p className="articles-subtitle">
                     Explore our collection of articles on web development, design, and technology
                 </p>
-            </div>
+            </header>
 
             {/* Filters section */}
-            <div className="articles-filters">
+            <section className="articles-filters" aria-label="Article filters and sorting">
                 {/* Top row: Search and Sort */}
                 <div className="filters-top-row">
                     {/* Search bar for text filtering */}
@@ -90,7 +95,7 @@ function Articles() {
                     selectedCategory={selectedCategory}
                     onCategoryChange={setSelectedCategory}
                 />
-            </div>
+            </section>
 
             {/* Display filtered and sorted articles */}
             <ArticleList articles={filteredAndSortedArticles} />

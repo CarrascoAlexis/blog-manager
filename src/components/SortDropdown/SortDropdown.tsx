@@ -22,12 +22,15 @@ function SortDropdown({ sortBy, onSortChange }: SortDropdownProps) {
     return (
         <div className="sort-box">
             {/* Material Symbols sort icon */}
-            <span className="material-symbols-outlined sort-icon">sort</span>
+            <span className="material-symbols-outlined sort-icon" aria-hidden="true">sort</span>
             {/* Dropdown select with sort options */}
+            <label htmlFor="sort-select" className="visually-hidden">Sort articles</label>
             <select
+                id="sort-select"
                 value={sortBy}
                 onChange={(e) => onSortChange(e.target.value as SortOption)}
                 className="sort-select"
+                aria-label="Sort articles by date or name"
             >
                 <option value="date-newest">Date: Newest First</option>
                 <option value="date-oldest">Date: Oldest First</option>

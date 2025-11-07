@@ -121,6 +121,13 @@
 }
 
 .pumpkin {
+  /* Reset button styles */
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  
   filter: drop-shadow(0 4px 8px rgba(255, 107, 53, 0.4));
   animation: pumpkinBounce 3s ease-in-out infinite;
   line-height: 0.8;
@@ -131,6 +138,12 @@
 
 .pumpkin:hover {
   transform: scale(1.1) rotate(var(--pumpkin-rotation, 0deg));
+}
+
+.pumpkin:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+  border-radius: 50%;
 }
 
 .pumpkin.pumpkin-clicked {
@@ -499,6 +512,13 @@
 }
 
 .tree-star {
+  /* Reset button styles */
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  
   font-size: 1.5rem;
   margin-bottom: -10px;
   z-index: 2;
@@ -510,6 +530,12 @@
 
 .tree-star:hover {
   transform: scale(1.15);
+}
+
+.tree-star:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+  border-radius: 50%;
 }
 
 .tree-star.star-clicked {

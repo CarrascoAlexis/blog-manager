@@ -17,7 +17,7 @@ interface CategoryFilterProps {
  */
 function CategoryFilter({ categories, selectedCategory, onCategoryChange }: CategoryFilterProps) {
     return (
-        <div className="category-filters">
+        <div className="category-filters" role="group" aria-label="Filter articles by category">
             {/* Render a button for each category */}
             {categories.map(category => (
                 <button
@@ -25,6 +25,8 @@ function CategoryFilter({ categories, selectedCategory, onCategoryChange }: Cate
                     onClick={() => onCategoryChange(category)}
                     // Add 'active' class to currently selected category
                     className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
+                    aria-pressed={selectedCategory === category}
+                    aria-label={`Filter by ${category} category`}
                 >
                     {category}
                 </button>

@@ -50,17 +50,21 @@ function VolumeControl() {
             <button
                 className="volume-button"
                 onClick={() => setIsOpen(!isOpen)}
-                aria-label="Volume control"
+                aria-label={`Volume control - ${Math.round(volume * 100)}%`}
+                aria-expanded={isOpen}
+                aria-controls="volume-controls"
                 title={`Volume: ${Math.round(volume * 100)}%`}
             >
                 {/* Dynamic volume icon based on current level */}
-                <span className="material-symbols-outlined">{getVolumeIcon()}</span>
+                <span className="material-symbols-outlined" aria-hidden="true">{getVolumeIcon()}</span>
             </button>
             {/* Volume controls panel - only visible when isOpen is true */}
             {isOpen && (
-                <div className="volume-slider-container">
+                <div id="volume-controls" className="volume-slider-container" role="group" aria-label="Volume controls">
                     {/* Range slider for precise volume control (0.00 to 1.00) */}
+                    <label htmlFor="volume-slider" className="visually-hidden">Volume level</label>
                     <input
+                        id="volume-slider"
                         type="range"
                         min="0"
                         max="1"
@@ -68,15 +72,19 @@ function VolumeControl() {
                         value={volume}
                         onChange={handleVolumeChange}
                         className="volume-slider"
-                        aria-label="Volume slider"
+                        aria-label="Adjust volume from 0 to 100 percent"
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                        aria-valuenow={Math.round(volume * 100)}
+                        aria-valuetext={`${Math.round(volume * 100)} percent`}
                     />
                     {/* Quick mute/unmute button */}
                     <button
                         className="mute-button"
                         onClick={toggleMute}
-                        aria-label={volume > 0 ? 'Mute' : 'Unmute'}
+                        aria-label={volume > 0 ? 'Mute audio' : 'Unmute audio'}
                     >
-                        <span className="material-symbols-outlined">
+                        <span className="material-symbols-outlined" aria-hidden="true">
                             {volume > 0 ? 'volume_off' : 'volume_up'}
                         </span>
                         <span>{volume > 0 ? 'Mute' : 'Unmute'}</span>

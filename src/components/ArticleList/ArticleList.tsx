@@ -19,8 +19,8 @@ function ArticleList({ articles }: ArticleListProps) {
     // Show empty state when no articles match filters
     if (articles.length === 0) {
         return (
-            <div className="no-results">
-                <span className="material-symbols-outlined no-results-icon">search_off</span>
+            <div className="no-results" role="status" aria-live="polite">
+                <span className="material-symbols-outlined no-results-icon" aria-hidden="true">search_off</span>
                 <p>No articles found matching your criteria</p>
             </div>
         );
@@ -28,7 +28,7 @@ function ArticleList({ articles }: ArticleListProps) {
 
     // Render grid of article cards
     return (
-        <div className="articles-grid">
+        <div className="articles-grid" role="list" aria-label="Articles">
             {articles.map(article => (
                 <ArticleCard key={article.id} article={article} />
             ))}

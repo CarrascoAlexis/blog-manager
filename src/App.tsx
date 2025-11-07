@@ -16,23 +16,32 @@ import NewArticle from './pages/NewArticle/NewArticle';
  */
 function App() {
     return (
-        <Template>
-            {/* Define application routes */}
-            <Routes>
-                {/* Home page route */}
-                <Route index element={<Home />} />
-                {/* Articles listing page */}
-                <Route path="/articles" element={<Articles />} />
-                {/* Individual article detail page with dynamic ID parameter */}
-                <Route path="/articles/:id" element={<Article />} />
-                {/* Create new article page */}
-                <Route path="/new" element={<NewArticle />} />
-                {/* Catch-all route for 404 Not Found */}
-                <Route path="*" element={<p>404 Not Found</p>} />
-            </Routes>
-            {/* Volume control appears on all pages for theme music */}
-            <VolumeControl />
-        </Template>
+        <>
+            {/* Skip to main content link for keyboard users */}
+            <a href="#main-content" className="skip-to-main">
+                Skip to main content
+            </a>
+            
+            <Template>
+                {/* Define application routes */}
+                <main id="main-content">
+                    <Routes>
+                        {/* Home page route */}
+                        <Route index element={<Home />} />
+                        {/* Articles listing page */}
+                        <Route path="/articles" element={<Articles />} />
+                        {/* Individual article detail page with dynamic ID parameter */}
+                        <Route path="/articles/:id" element={<Article />} />
+                        {/* Create new article page */}
+                        <Route path="/new" element={<NewArticle />} />
+                        {/* Catch-all route for 404 Not Found */}
+                        <Route path="*" element={<div role="alert"><p>404 Not Found</p></div>} />
+                    </Routes>
+                </main>
+                {/* Volume control appears on all pages for theme music */}
+                <VolumeControl />
+            </Template>
+        </>
     );
 }
 
