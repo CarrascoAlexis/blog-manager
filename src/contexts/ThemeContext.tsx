@@ -35,12 +35,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     // Reference to audio element for theme music
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
-    // Effect runs when theme or volume changes
-    useEffect(() => {
-        // Apply theme to document root for CSS variables
-        document.documentElement.setAttribute('data-theme', theme);
-
-        // Map of themes to their music files (in public folder)
+    const handleMusicPlayback = () => {
         const musicFiles: Record<string, string> = {
             christmass: '/musics/all_i_want_for_christmas_is_you.mp3',
             halloween: '/musics/this_is_halloween.mp3',
@@ -73,6 +68,16 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
                 audioRef.current.currentTime = 0;
             }
         }
+    };
+
+    // Effect runs when theme or volume changes
+    useEffect(() => {
+        // Apply theme to document root for CSS variables
+        document.documentElement.setAttribute('data-theme', theme);
+
+        // Map of themes to their music files (in public folder)
+        handleMusicPlayback();
+        
     }, [theme, volume]);
 
     /**
@@ -109,6 +114,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
             setIsTransitioning(false);
         }, 500);
     };
+    
 
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme, volume, setVolume }}>

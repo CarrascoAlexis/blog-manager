@@ -172,14 +172,14 @@ function Home() {
                     {/* Technologies used with clickable links to documentation */}
                     <div className="tech-stack">
                         <h3 className="tech-title">Technologies Used</h3>
-                        <div className="tech-tags" role="list">
+                        <div className="tech-tags">
                             {/* Each tech tag is a link to official documentation */}
-                            <a href="https://react.dev/" target="_blank" rel="noopener noreferrer" className="tech-tag" role="listitem">React 18</a>
-                            <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener noreferrer" className="tech-tag" role="listitem">TypeScript</a>
-                            <a href="https://reactrouter.com/" target="_blank" rel="noopener noreferrer" className="tech-tag" role="listitem">React Router</a>
-                            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener noreferrer" className="tech-tag" role="listitem">CSS3</a>
-                            <a href="https://vitejs.dev/" target="_blank" rel="noopener noreferrer" className="tech-tag" role="listitem">Vite</a>
-                            <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage" target="_blank" rel="noopener noreferrer" className="tech-tag" role="listitem">localStorage</a>
+                            <a href="https://react.dev/" target="_blank" rel="noopener noreferrer" className="tech-tag" aria-label="Learn more about React 18 (opens in new tab)">React 18</a>
+                            <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener noreferrer" className="tech-tag" aria-label="Learn more about TypeScript (opens in new tab)">TypeScript</a>
+                            <a href="https://reactrouter.com/" target="_blank" rel="noopener noreferrer" className="tech-tag" aria-label="Learn more about React Router (opens in new tab)">React Router</a>
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener noreferrer" className="tech-tag" aria-label="Learn more about CSS3 (opens in new tab)">CSS3</a>
+                            <a href="https://vitejs.dev/" target="_blank" rel="noopener noreferrer" className="tech-tag" aria-label="Learn more about Vite (opens in new tab)">Vite</a>
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage" target="_blank" rel="noopener noreferrer" className="tech-tag" aria-label="Learn more about localStorage (opens in new tab)">localStorage</a>
                         </div>
                     </div>
                 </div>
@@ -198,8 +198,8 @@ function Home() {
                             <span className="material-symbols-outlined" aria-hidden="true">explore</span>
                             Browse Articles
                         </Link>
-                        <Link to="/new" className="btn-outline" aria-label="Create a new article">
-                            <span className="material-symbols-outlined" aria-hidden="true">edit</span>
+                        <Link to="/new" className="btn-secondary" aria-label="Create a new article">
+                            <span className="material-symbols-outlined" aria-hidden="true">add</span>
                             Create Article
                         </Link>
                     </div>

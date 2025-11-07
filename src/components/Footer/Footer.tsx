@@ -45,18 +45,80 @@ function Footer() {
                     <div className="spider-web top-left">
                         {/* SVG spider web graphic */}
                         <svg viewBox="0 0 100 100" className="web-svg" aria-hidden="true">
-                            <path d="M0,0 L50,50 M0,20 Q25,25 50,50 M0,40 Q25,42 50,50 M20,0 Q25,25 50,50 M40,0 Q42,25 50,50" 
-                                  stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" fill="none"/>
+                            {/* Radial strands from corner */}
+                            <line x1="0" y1="0" x2="50" y2="50" stroke="rgba(200,200,200,0.4)" strokeWidth="1"/>
+                            <line x1="0" y1="0" x2="30" y2="50" stroke="rgba(200,200,200,0.4)" strokeWidth="1"/>
+                            <line x1="0" y1="0" x2="50" y2="30" stroke="rgba(200,200,200,0.4)" strokeWidth="1"/>
+                            <line x1="0" y1="0" x2="20" y2="50" stroke="rgba(200,200,200,0.4)" strokeWidth="1"/>
+                            <line x1="0" y1="0" x2="50" y2="20" stroke="rgba(200,200,200,0.4)" strokeWidth="1"/>
+                            <line x1="0" y1="0" x2="10" y2="50" stroke="rgba(200,200,200,0.4)" strokeWidth="1"/>
+                            <line x1="0" y1="0" x2="50" y2="10" stroke="rgba(200,200,200,0.4)" strokeWidth="1"/>
+                            {/* Concentric web circles */}
+                            <path d="M 8,8 Q 8,25 13,35 Q 20,42 30,42 Q 38,42 42,35 Q 47,25 47,15" 
+                                  stroke="rgba(200,200,200,0.35)" strokeWidth="0.8" fill="none"/>
+                            <path d="M 15,15 Q 15,30 20,37 Q 25,42 33,42 Q 40,42 42,37 Q 45,30 45,22" 
+                                  stroke="rgba(200,200,200,0.35)" strokeWidth="0.8" fill="none"/>
+                            <path d="M 22,22 Q 22,32 26,38 Q 30,42 36,42 Q 41,42 42,38 Q 44,32 44,28" 
+                                  stroke="rgba(200,200,200,0.35)" strokeWidth="0.8" fill="none"/>
+                            <path d="M 30,30 Q 30,35 32,38 Q 34,40 38,40 Q 41,40 42,38 Q 43,35 43,33" 
+                                  stroke="rgba(200,200,200,0.35)" strokeWidth="0.8" fill="none"/>
                         </svg>
-                        {/* Animated spider */}
-                        <div className="spider spider-1"></div>
+                        {/* Animated spider with legs */}
+                        <div className="spider spider-1" aria-hidden="true">
+                            <div className="spider-eyes">
+                                <div className="spider-eye spider-eye-left"></div>
+                                <div className="spider-eye spider-eye-right"></div>
+                            </div>
+                            <div className="spider-mouth"></div>
+                            <div className="spider-legs">
+                                <div className="spider-leg spider-leg-1"></div>
+                                <div className="spider-leg spider-leg-2"></div>
+                                <div className="spider-leg spider-leg-3"></div>
+                                <div className="spider-leg spider-leg-4"></div>
+                                <div className="spider-leg spider-leg-5"></div>
+                                <div className="spider-leg spider-leg-6"></div>
+                                <div className="spider-leg spider-leg-7"></div>
+                                <div className="spider-leg spider-leg-8"></div>
+                            </div>
+                        </div>
                     </div>
                     <div className="spider-web top-right">
                         <svg viewBox="0 0 100 100" className="web-svg" aria-hidden="true">
-                            <path d="M100,0 L50,50 M100,20 Q75,25 50,50 M100,40 Q75,42 50,50 M80,0 Q75,25 50,50 M60,0 Q58,25 50,50" 
-                                  stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" fill="none"/>
+                            {/* Radial strands from corner (mirrored) */}
+                            <line x1="100" y1="0" x2="50" y2="50" stroke="rgba(200,200,200,0.4)" strokeWidth="1"/>
+                            <line x1="100" y1="0" x2="70" y2="50" stroke="rgba(200,200,200,0.4)" strokeWidth="1"/>
+                            <line x1="100" y1="0" x2="50" y2="30" stroke="rgba(200,200,200,0.4)" strokeWidth="1"/>
+                            <line x1="100" y1="0" x2="80" y2="50" stroke="rgba(200,200,200,0.4)" strokeWidth="1"/>
+                            <line x1="100" y1="0" x2="50" y2="20" stroke="rgba(200,200,200,0.4)" strokeWidth="1"/>
+                            <line x1="100" y1="0" x2="90" y2="50" stroke="rgba(200,200,200,0.4)" strokeWidth="1"/>
+                            <line x1="100" y1="0" x2="50" y2="10" stroke="rgba(200,200,200,0.4)" strokeWidth="1"/>
+                            {/* Concentric web circles (mirrored) */}
+                            <path d="M 92,8 Q 92,25 87,35 Q 80,42 70,42 Q 62,42 58,35 Q 53,25 53,15" 
+                                  stroke="rgba(200,200,200,0.35)" strokeWidth="0.8" fill="none"/>
+                            <path d="M 85,15 Q 85,30 80,37 Q 75,42 67,42 Q 60,42 58,37 Q 55,30 55,22" 
+                                  stroke="rgba(200,200,200,0.35)" strokeWidth="0.8" fill="none"/>
+                            <path d="M 78,22 Q 78,32 74,38 Q 70,42 64,42 Q 59,42 58,38 Q 56,32 56,28" 
+                                  stroke="rgba(200,200,200,0.35)" strokeWidth="0.8" fill="none"/>
+                            <path d="M 70,30 Q 70,35 68,38 Q 66,40 62,40 Q 59,40 58,38 Q 57,35 57,33" 
+                                  stroke="rgba(200,200,200,0.35)" strokeWidth="0.8" fill="none"/>
                         </svg>
-                        <div className="spider spider-2"></div>
+                        <div className="spider spider-2" aria-hidden="true">
+                            <div className="spider-eyes">
+                                <div className="spider-eye spider-eye-left"></div>
+                                <div className="spider-eye spider-eye-right"></div>
+                            </div>
+                            <div className="spider-mouth"></div>
+                            <div className="spider-legs">
+                                <div className="spider-leg spider-leg-1"></div>
+                                <div className="spider-leg spider-leg-2"></div>
+                                <div className="spider-leg spider-leg-3"></div>
+                                <div className="spider-leg spider-leg-4"></div>
+                                <div className="spider-leg spider-leg-5"></div>
+                                <div className="spider-leg spider-leg-6"></div>
+                                <div className="spider-leg spider-leg-7"></div>
+                                <div className="spider-leg spider-leg-8"></div>
+                            </div>
+                        </div>
                     </div>
                     
                     {/* Interactive clickable pumpkins */}
