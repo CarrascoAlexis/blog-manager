@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import type { category } from '../../shared/interfaces';
+import CreateCategoryModal from '../CreateCategoryModal/CreateCategoryModal';
 import './ArticleForm.css';
 
 /**
@@ -24,6 +25,7 @@ interface ArticleFormProps {
     onSubmit: (data: ArticleFormData) => void; // Callback when form is submitted
     onSaveDraft?: (data: ArticleFormData) => Record<string, string> | null; // Optional callback to save as draft, returns validation errors or null
     onCancel?: () => void;                     // Optional callback when form is cancelled
+    onCreateCategory?: (name: string, color: string, description?: string) => string; // Optional callback to create new category, returns category ID
     submitLabel?: string;                      // Custom submit button text
     showCancel?: boolean;                      // Whether to show cancel button
 }
@@ -40,6 +42,7 @@ function ArticleForm({
     onSubmit,
     onSaveDraft,
     onCancel,
+    onCreateCategory,
     submitLabel = 'Publish Article',
     showCancel = false
 }: ArticleFormProps) {
@@ -49,6 +52,8 @@ function ArticleForm({
     const [formData, setFormData] = useState<ArticleFormData>(initialFormData);
     // Validation errors
     const [errors, setErrors] = useState<Record<string, string>>({});
+    // Create category modal state
+    const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false);
 
     /**
      * Handle input changes for all form fields
@@ -247,6 +252,7 @@ function ArticleForm({
     };
 
     return (
+        <>
         <form className="article-form" onSubmit={handleSubmit}>
             {/* Title field */}
             <div className="form-row">
@@ -330,21 +336,35 @@ function ArticleForm({
                     <label htmlFor="categoryId">
                         Category <span className="required">*</span>
                     </label>
-                    <select
-                        id="categoryId"
-                        name="categoryId"
-                        value={formData.categoryId}
-                        onChange={handleChange}
-                        className={errors.categoryId ? 'error' : ''}
-                    >
-                        <option value="">Select a category</option>
-                        {/* Render option for each available category */}
-                        {categories.map(cat => (
-                            <option key={cat.id} value={cat.id}>
-                                {cat.name}
-                            </option>
-                        ))}
-                    </select>
+                    <div className="category-select-wrapper">
+                        <select
+                            id="categoryId"
+                            name="categoryId"
+                            value={formData.categoryId}
+                            onChange={handleChange}
+                            className={errors.categoryId ? 'error' : ''}
+                        >
+                            <option value="">Select a category</option>
+                            {/* Render option for each available category */}
+                            {categories.map(cat => (
+                                <option key={cat.id} value={cat.id}>
+                                    {cat.name}
+                                </option>
+                            ))}
+                        </select>
+                        {onCreateCategory && (
+                            <button
+                                type="button"
+                                className="btn-create-category"
+                                onClick={() => setIsCreateCategoryModalOpen(true)}
+                                aria-label="Create new category"
+                                title="Create new category"
+                            >
+                                <span className="material-symbols-outlined" aria-hidden="true">add_circle</span>
+                                New Category
+                            </button>
+                        )}
+                    </div>
                     {errors.categoryId && <span className="error-message">{errors.categoryId}</span>}
                 </div>
             </div>
@@ -446,6 +466,21 @@ function ArticleForm({
                 </button>
             </div>
         </form>
+
+        {/* Create Category Modal - rendered outside form to avoid nesting */}
+        {onCreateCategory && (
+            <CreateCategoryModal
+                isOpen={isCreateCategoryModalOpen}
+                onClose={() => setIsCreateCategoryModalOpen(false)}
+                onConfirm={(name, color, description) => {
+                    const newCategoryId = onCreateCategory(name, color, description);
+                    // Auto-select the newly created category
+                    setFormData(prev => ({ ...prev, categoryId: newCategoryId }));
+                    setIsCreateCategoryModalOpen(false);
+                }}
+            />
+        )}
+        </>
     );
 }
 

@@ -18,7 +18,7 @@ function NewArticle() {
     // Load existing articles from localStorage
     const [articles, setArticles] = useLocalStorage<Article[]>('blog-articles', []);
     // Load available categories from localStorage
-    const [categories] = useLocalStorage<category[]>('blog-categories', []);
+    const [categories, setCategories] = useLocalStorage<category[]>('blog-categories', []);
     // Load drafts from localStorage
     const [drafts, setDrafts] = useLocalStorage<Draft[]>('blog-drafts', []);
     // Track current draft being edited
@@ -144,6 +144,30 @@ function NewArticle() {
         }
         
         return null; // Success
+    };
+
+    /**
+     * Handle creating a new category
+     */
+    const handleCreateCategory = (name: string, color: string, description?: string): string => {
+        const newCategory: category = {
+            id: generateUUID(),
+            name,
+            color,
+            description
+        };
+        
+        // Get current categories from localStorage
+        const currentCategories = JSON.parse(localStorage.getItem('blog-categories') || '[]');
+        // Add new category
+        const updatedCategories = [...currentCategories, newCategory];
+        // Save back to localStorage
+        localStorage.setItem('blog-categories', JSON.stringify(updatedCategories));
+        // Update state
+        setCategories(updatedCategories);
+        
+        // Return the new category ID
+        return newCategory.id;
     };
 
     /**
@@ -348,6 +372,7 @@ function NewArticle() {
                     categories={categories}
                     onSubmit={handleSubmit}
                     onSaveDraft={handleSaveDraft}
+                    onCreateCategory={handleCreateCategory}
                     submitLabel="Publish Article"
                 />
             </div>

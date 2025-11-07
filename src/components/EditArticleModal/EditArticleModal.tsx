@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import type { Article, category } from '../../shared/interfaces';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import CreateCategoryModal from '../CreateCategoryModal/CreateCategoryModal';
 import './EditArticleModal.css';
 
 /**
@@ -22,13 +23,15 @@ interface EditArticleModalProps {
  */
 function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModalProps) {
     // Load categories from localStorage
-    const [categories] = useLocalStorage<category[]>('blog-categories', []);
+    const [categories, setCategories] = useLocalStorage<category[]>('blog-categories', []);
     // Form state - initialized with article data
     const [formData, setFormData] = useState<Article>(article);
     // Validation errors
     const [errors, setErrors] = useState<Record<string, string>>({});
     // Reference to content textarea for Markdown insertion
     const contentTextareaRef = useRef<HTMLTextAreaElement>(null);
+    // Create category modal state
+    const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false);
 
     // Update form data when article prop changes
     useEffect(() => {
@@ -138,6 +141,38 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
             (formData.content?.substring(start) || '');
 
         setFormData(prev => ({ ...prev, content: newText }));
+    };
+
+    /**
+     * Handle creating a new category
+     */
+    const handleCreateCategory = (name: string, color: string, description?: string) => {
+        const generateUUID = () => {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+                const r = Math.random() * 16 | 0;
+                const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        };
+
+        const newCategory: category = {
+            id: generateUUID(),
+            name,
+            color,
+            description
+        };
+        
+        // Get current categories from localStorage
+        const currentCategories = JSON.parse(localStorage.getItem('blog-categories') || '[]');
+        // Add new category
+        const updatedCategories = [...currentCategories, newCategory];
+        // Save back to localStorage
+        localStorage.setItem('blog-categories', JSON.stringify(updatedCategories));
+        // Update state
+        setCategories(updatedCategories);
+        
+        // Auto-select the newly created category
+        setFormData(prev => ({ ...prev, category: newCategory }));
     };
 
     /**
@@ -255,23 +290,34 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
 
                         <div className="form-group">
                             <label htmlFor="categoryId" className="form-label">Category *</label>
-                            <select
-                                id="categoryId"
-                                name="categoryId"
-                                value={formData.category.id}
-                                onChange={handleChange}
-                                className={`form-select ${errors.categoryId ? 'error' : ''}`}
-                                aria-required="true"
-                                aria-invalid={!!errors.categoryId}
-                                aria-describedby={errors.categoryId ? 'category-error' : undefined}
-                            >
-                                <option value="">Select a category</option>
-                                {categories.map(cat => (
-                                    <option key={cat.id} value={cat.id}>
-                                        {cat.name}
-                                    </option>
-                                ))}
-                            </select>
+                            <div className="category-select-wrapper">
+                                <select
+                                    id="categoryId"
+                                    name="categoryId"
+                                    value={formData.category.id}
+                                    onChange={handleChange}
+                                    className={`form-select ${errors.categoryId ? 'error' : ''}`}
+                                    aria-required="true"
+                                    aria-invalid={!!errors.categoryId}
+                                    aria-describedby={errors.categoryId ? 'category-error' : undefined}
+                                >
+                                    <option value="">Select a category</option>
+                                    {categories.map(cat => (
+                                        <option key={cat.id} value={cat.id}>
+                                            {cat.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <button
+                                    type="button"
+                                    className="btn-create-category"
+                                    onClick={() => setIsCreateCategoryModalOpen(true)}
+                                    title="Create new category"
+                                >
+                                    <span className="material-symbols-outlined">add_circle</span>
+                                    New Category
+                                </button>
+                            </div>
                             {errors.categoryId && <span id="category-error" className="error-message" role="alert">{errors.categoryId}</span>}
                         </div>
 
@@ -364,6 +410,16 @@ function EditArticleModal({ article, isOpen, onClose, onSave }: EditArticleModal
                         </button>
                     </div>
                 </form>
+
+                {/* Category creation modal */}
+                <CreateCategoryModal
+                    isOpen={isCreateCategoryModalOpen}
+                    onClose={() => setIsCreateCategoryModalOpen(false)}
+                    onConfirm={(name, color, description) => {
+                        handleCreateCategory(name, color, description);
+                        setIsCreateCategoryModalOpen(false);
+                    }}
+                />
             </div>
         </div>
     );

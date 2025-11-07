@@ -7,9 +7,9 @@ import { useState } from 'react';
  * @template T - The type of data to store
  * @param {string} key - The localStorage key to use
  * @param {T} initialValue - Default value if no stored value exists
- * @returns {[T, (value: T) => void]} - Array with [storedValue, setValue] similar to useState
+ * @returns {[T, (value: T | ((prev: T) => T)) => void]} - Array with [storedValue, setValue] similar to useState
  */
-function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void] {
+function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T | ((prev: T) => T)) => void] {
     // Initialize state from localStorage or use initialValue
     const [storedValue, setStoredValue] = useState<T>(() => {
         try {
@@ -26,12 +26,12 @@ function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => voi
     
     /**
      * Setter function that updates both state and localStorage
-     * @param {T} value - New value to store (can be a function for functional updates)
+     * @param {T | ((prev: T) => T)} value - New value to store (can be a function for functional updates)
      */
-    const setValue = (value: T) => {
+    const setValue = (value: T | ((prev: T) => T)) => {
         try {
             // Allow value to be a function (like useState)
-            const valueToStore = value instanceof Function ? value(storedValue) : value;
+            const valueToStore = typeof value === 'function' ? (value as (prev: T) => T)(storedValue) : value;
             // Update React state
             setStoredValue(valueToStore);
             // Persist to localStorage as JSON
