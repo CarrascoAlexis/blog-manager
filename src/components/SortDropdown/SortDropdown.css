@@ -1,0 +1,83 @@
+/*
+  SortDropdown.css — Sort dropdown component styles
+*/
+
+.sort-box {
+  position: relative;
+  min-width: 200px;
+}
+
+.sort-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted-color);
+  font-size: 1.25rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sort-select {
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 3rem;
+  font-size: 1rem;
+  border: 2px solid var(--surface-border);
+  border-radius: 12px;
+  background: var(--surface-bg);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  box-sizing: border-box;
+}
+
+.sort-select:hover {
+  border-color: var(--accent-color);
+}
+
+.sort-select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.sort-select option {
+  background: var(--surface-bg);
+  color: var(--text-color);
+  padding: 0.5rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .sort-box {
+    width: 100%;
+  }
+
+  .sort-select {
+    padding: 0.75rem 2.5rem 0.75rem 2.75rem;
+    font-size: 0.9375rem;
+  }
+
+  .sort-icon {
+    left: 0.875rem;
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sort-select {
+    padding: 0.625rem 2.5rem 0.625rem 2.5rem;
+    font-size: 0.875rem;
+    border-radius: 10px;
+  }
+
+  .sort-icon {
+    left: 0.75rem;
+    font-size: 1rem;
+  }
+}

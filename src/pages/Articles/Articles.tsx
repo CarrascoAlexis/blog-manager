@@ -1,22 +1,41 @@
 import { useState } from 'react';
 import type { Article } from '../../shared/interfaces';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import ArticleCard from '../../components/ArticleCard/ArticleCard';
+import SearchBar from '../../components/SearchBar/SearchBar';
+import SortDropdown, { type SortOption } from '../../components/SortDropdown/SortDropdown';
+import CategoryFilter from '../../components/CategoryFilter/CategoryFilter';
+import ArticleList from '../../components/ArticleList/ArticleList';
 import './Articles.css';
 
 function Articles() {
     const [articles] = useLocalStorage<Article[]>('blog-articles', []);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('All');
+    const [sortBy, setSortBy] = useState<SortOption>('date-newest');
 
     const categories = ['All', ...new Set(articles.map(article => article.category.name))];
 
-    const filteredArticles = articles.filter(article => {
-        const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            article.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesCategory = selectedCategory === 'All' || article.category.name === selectedCategory;
-        return matchesSearch && matchesCategory;
-    });
+    const filteredAndSortedArticles = articles
+        .filter(article => {
+            const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                article.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+            const matchesCategory = selectedCategory === 'All' || article.category.name === selectedCategory;
+            return matchesSearch && matchesCategory;
+        })
+        .sort((a, b) => {
+            switch (sortBy) {
+                case 'name-asc':
+                    return a.title.localeCompare(b.title);
+                case 'name-desc':
+                    return b.title.localeCompare(a.title);
+                case 'date-newest':
+                    return new Date(b.date).getTime() - new Date(a.date).getTime();
+                case 'date-oldest':
+                    return new Date(a.date).getTime() - new Date(b.date).getTime();
+                default:
+                    return 0;
+            }
+        });
 
     return (
         <div className="articles-page">
@@ -31,42 +50,25 @@ function Articles() {
             </div>
 
             <div className="articles-filters">
-                <div className="search-box">
-                    <span className="material-symbols-outlined search-icon">search</span>
-                    <input
-                        type="text"
-                        placeholder="Search articles..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="search-input"
+                <div className="filters-top-row">
+                    <SearchBar 
+                        searchTerm={searchTerm}
+                        onSearchChange={setSearchTerm}
+                    />
+                    <SortDropdown 
+                        sortBy={sortBy}
+                        onSortChange={setSortBy}
                     />
                 </div>
 
-                <div className="category-filters">
-                    {categories.map(category => (
-                        <button
-                            key={category}
-                            onClick={() => setSelectedCategory(category)}
-                            className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
-                        >
-                            {category}
-                        </button>
-                    ))}
-                </div>
+                <CategoryFilter 
+                    categories={categories}
+                    selectedCategory={selectedCategory}
+                    onCategoryChange={setSelectedCategory}
+                />
             </div>
 
-            <div className="articles-grid">
-                {filteredArticles.length > 0 ? (
-                    filteredArticles.map(article => (
-                        <ArticleCard key={article.id} article={article} />
-                    ))
-                ) : (
-                    <div className="no-results">
-                        <span className="material-symbols-outlined no-results-icon">search_off</span>
-                        <p>No articles found matching your criteria</p>
-                    </div>
-                )}
-            </div>
+            <ArticleList articles={filteredAndSortedArticles} />
         </div>
     );
 }

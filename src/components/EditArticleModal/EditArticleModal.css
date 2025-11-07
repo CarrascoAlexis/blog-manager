@@ -1,86 +1,99 @@
 /*
-  NewArticle.css — New Article Page styles
+  EditArticleModal.css — Edit Article Modal styles
 
   Purpose:
-  - Page layout for article creation
-  - Form component is separately styled
+  - Styles for the edit article modal overlay and form
 */
 
-.new-article-page {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
-  padding-bottom: 120px;
-}
-
-/* Header */
-.new-article-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.new-article-title {
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.modal-content {
+  background: var(--bg-color);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--surface-border);
+  position: sticky;
+  top: 0;
+  background: var(--bg-color);
+  z-index: 10;
+}
+
+.modal-title {
+  display: flex;
+  align-items: center;
   gap: 0.75rem;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-color);
-  margin: 0 0 1rem 0;
-}
-
-.new-article-title .material-symbols-outlined {
-  font-size: 2.5rem;
-  color: var(--accent-color);
-}
-
-.new-article-subtitle {
-  font-size: 1.125rem;
-  color: var(--muted-color);
   margin: 0;
 }
 
-/* Form Container */
-.form-container {
-  background: var(--surface-bg);
-  border: 1px solid var(--surface-border);
-  border-radius: 16px;
-  padding: 2.5rem;
+.modal-title .material-symbols-outlined {
+  font-size: 1.75rem;
+  color: var(--accent-color);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .new-article-page {
-    padding: 1.5rem 1rem;
-  }
-
-  .new-article-title {
-    font-size: 2rem;
-  }
-
-  .form-container {
-    padding: 2rem 1.5rem;
-  }
+.modal-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.2s;
+  color: var(--text-color);
 }
 
-@media (max-width: 480px) {
-  .new-article-page {
-    padding: 1rem;
-  }
-
-  .new-article-title {
-    font-size: 1.75rem;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .form-container {
-    padding: 1.5rem 1rem;
-    border-radius: 12px;
-  }
+.modal-close:hover {
+  background: var(--hover-bg, rgba(0, 0, 0, 0.05));
 }
 
+.modal-close .material-symbols-outlined {
+  font-size: 1.5rem;
+}
+
+.modal-form {
+  padding: 2rem;
+}
 
 .form-group {
   margin-bottom: 1.5rem;
@@ -116,7 +129,7 @@
   font-family: 'Inter', sans-serif;
   border: 2px solid var(--surface-border);
   border-radius: 8px;
-  background: var(--bg-color);
+  background: var(--surface-bg);
   color: var(--text-color);
   transition: all 0.2s ease;
   box-sizing: border-box;
@@ -212,32 +225,28 @@
   margin-top: 0.375rem;
 }
 
-/* Form Actions */
-.form-actions {
+/* Modal Actions */
+.modal-actions {
   display: flex;
   gap: 1rem;
   justify-content: flex-end;
-  margin-top: 2rem;
-  padding-top: 2rem;
+  padding-top: 1rem;
   border-top: 1px solid var(--surface-border);
+  margin-top: 2rem;
 }
 
-.btn {
+.btn-primary,
+.btn-secondary {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.875rem 1.75rem;
-  font-size: 1rem;
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn .material-symbols-outlined {
-  font-size: 1.25rem;
 }
 
 .btn-primary {
@@ -246,68 +255,43 @@
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
 
 .btn-secondary {
-  background: var(--surface-bg);
+  background: transparent;
   color: var(--text-color);
   border: 2px solid var(--surface-border);
 }
 
 .btn-secondary:hover {
-  background: var(--hover-bg);
-  border-color: var(--accent-color);
+  background: var(--hover-bg, rgba(0, 0, 0, 0.05));
 }
 
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 768px) {
-  .new-article-page {
-    padding: 1.5rem 1rem;
+  .modal-content {
+    max-height: 95vh;
+    border-radius: 16px 16px 0 0;
   }
 
-  .new-article-title {
-    font-size: 2rem;
-  }
-
-  .article-form {
-    padding: 2rem 1.5rem;
+  .modal-header,
+  .modal-form {
+    padding: 1.5rem;
   }
 
   .form-row {
     grid-template-columns: 1fr;
-    gap: 1rem;
   }
 
-  .form-actions {
+  .modal-actions {
     flex-direction: column-reverse;
   }
 
-  .btn {
+  .btn-primary,
+  .btn-secondary {
     width: 100%;
     justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .new-article-page {
-    padding: 1rem 0.75rem;
-  }
-
-  .new-article-title {
-    font-size: 1.75rem;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .article-form {
-    padding: 1.5rem 1rem;
-  }
-
-  .form-input,
-  .form-textarea,
-  .form-select {
-    font-size: 0.9375rem;
   }
 }

@@ -790,7 +790,7 @@ GET /api/users/123
   "id": 123,
   "name": "John Doe",
   "email": "john@example.com",
-  "createdAt": "2024-01-15T10:00:00Z"
+  "creationDate ": "2024-01-15T10:00:00Z"
 }
 \`\`\`
 
@@ -811,7 +811,7 @@ Content-Type: application/json
   "id": 124,
   "name": "Jane Smith",
   "email": "jane@example.com",
-  "createdAt": "2024-01-16T14:30:00Z"
+  "creationDate ": "2024-01-16T14:30:00Z"
 }
 \`\`\`
 
@@ -870,7 +870,7 @@ GET /api/users?page=2&limit=20
 GET /api/users?role=admin&status=active
 
 # Sorting
-GET /api/users?sort=createdAt&order=desc
+GET /api/users?sort=creationDate &order=desc
 
 # Multiple fields
 GET /api/users?sort=lastName,firstName
@@ -1749,7 +1749,7 @@ type Post {
   title: String!
   content: String!
   author: User!
-  createdAt: String!
+  creationDate : String!
 }
 
 type Query {
@@ -1796,7 +1796,7 @@ query {
     name
     posts {
       title
-      createdAt
+      creationDate 
     }
   }
 }

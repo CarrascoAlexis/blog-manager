@@ -20,7 +20,7 @@ export interface Article {
     category: category;
     readTime: string;
     content?: string;
-    createdAt?: string;
+    creationDate ?: string;
     updatedAt?: string;
 }
 

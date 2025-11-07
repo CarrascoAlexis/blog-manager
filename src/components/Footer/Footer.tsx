@@ -86,6 +86,25 @@ function Footer() {
                         </div>
                         <div className="tree-top">🌲</div>
                     </div>
+
+                    {/* Falling snowflakes */}
+                    <div className="snowflakes">
+                        <div className="snowflake snowflake-1">❄️</div>
+                        <div className="snowflake snowflake-2">❅</div>
+                        <div className="snowflake snowflake-3">❆</div>
+                        <div className="snowflake snowflake-4">❄️</div>
+                        <div className="snowflake snowflake-5">❅</div>
+                        <div className="snowflake snowflake-6">❆</div>
+                        <div className="snowflake snowflake-7">❄️</div>
+                        <div className="snowflake snowflake-8">❅</div>
+                        <div className="snowflake snowflake-9">❆</div>
+                        <div className="snowflake snowflake-10">❄️</div>
+                        <div className="snowflake snowflake-11">❅</div>
+                        <div className="snowflake snowflake-12">❆</div>
+                        <div className="snowflake snowflake-13">❄️</div>
+                        <div className="snowflake snowflake-14">❅</div>
+                        <div className="snowflake snowflake-15">❆</div>
+                    </div>
                 </>
             )}
             

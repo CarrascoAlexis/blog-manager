@@ -13,6 +13,20 @@
   padding: 2rem 1.5rem;
 }
 
+/* Actions Container */
+.article-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
 /* Back Link */
 .back-link {
   display: inline-flex;
@@ -22,7 +36,6 @@
   text-decoration: none;
   font-size: 0.9375rem;
   font-weight: 500;
-  margin-bottom: 2rem;
   transition: all 0.2s ease;
   padding: 0.5rem 1rem;
   border-radius: 8px;
@@ -35,6 +48,58 @@
 }
 
 .back-link .material-symbols-outlined {
+  font-size: 1.25rem;
+}
+
+/* Edit Button */
+.edit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.edit-btn .material-symbols-outlined {
+  font-size: 1.25rem;
+}
+
+/* Delete Button */
+.delete-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: transparent;
+  color: #ef4444;
+  border: 2px solid #ef4444;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+  background: #ef4444;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.delete-btn .material-symbols-outlined {
   font-size: 1.25rem;
 }
 
@@ -53,6 +118,26 @@
     padding: 1.5rem 1rem;
   }
 
+  .article-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .back-link {
+    order: 2;
+  }
+
+  .action-buttons {
+    order: 1;
+    width: 100%;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    flex: 1;
+    justify-content: center;
+  }
+
   .article-detail {
     padding: 2rem 1.5rem;
   }
@@ -61,5 +146,9 @@
 @media (max-width: 480px) {
   .article-detail {
     padding: 1.5rem 1rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
   }
 }

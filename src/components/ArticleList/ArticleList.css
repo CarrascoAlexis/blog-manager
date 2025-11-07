@@ -1,0 +1,43 @@
+/*
+  ArticleList.css — Article list component styles
+*/
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.no-results {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--muted-color);
+}
+
+.no-results-icon {
+  font-size: 4rem;
+  color: var(--muted-color);
+  opacity: 0.5;
+  margin-bottom: 1rem;
+}
+
+.no-results p {
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+/* Tablet responsive */
+@media (max-width: 1024px) {
+  .articles-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .articles-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}

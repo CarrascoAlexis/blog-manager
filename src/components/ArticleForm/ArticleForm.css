@@ -1,99 +1,21 @@
 /*
-  NewArticle.css — New Article Page styles
+  ArticleForm.css — Article Form component styles
 
   Purpose:
-  - Page layout for article creation
-  - Form component is separately styled
+  - Reusable form component styles for creating/editing articles
+  - Form inputs, validation, and formatting toolbar
 */
 
-.new-article-page {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
-  padding-bottom: 120px;
-}
-
-/* Header */
-.new-article-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.new-article-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--text-color);
-  margin: 0 0 1rem 0;
-}
-
-.new-article-title .material-symbols-outlined {
-  font-size: 2.5rem;
-  color: var(--accent-color);
-}
-
-.new-article-subtitle {
-  font-size: 1.125rem;
-  color: var(--muted-color);
-  margin: 0;
-}
-
 /* Form Container */
-.form-container {
-  background: var(--surface-bg);
-  border: 1px solid var(--surface-border);
-  border-radius: 16px;
-  padding: 2.5rem;
+.article-form {
+  width: 100%;
 }
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .new-article-page {
-    padding: 1.5rem 1rem;
-  }
-
-  .new-article-title {
-    font-size: 2rem;
-  }
-
-  .form-container {
-    padding: 2rem 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .new-article-page {
-    padding: 1rem;
-  }
-
-  .new-article-title {
-    font-size: 1.75rem;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .form-container {
-    padding: 1.5rem 1rem;
-    border-radius: 12px;
-  }
-}
-
 
 .form-group {
   margin-bottom: 1.5rem;
 }
 
-.form-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.form-label {
+.form-group label {
   display: block;
   font-size: 0.9375rem;
   font-weight: 600;
@@ -101,15 +23,21 @@
   margin-bottom: 0.5rem;
 }
 
+.required {
+  color: #ef4444;
+}
+
 .label-hint {
   font-weight: 400;
   color: var(--muted-color);
   font-size: 0.875rem;
+  margin-left: 0.5rem;
 }
 
-.form-input,
-.form-textarea,
-.form-select {
+/* Form Inputs */
+.form-group input,
+.form-group textarea,
+.form-group select {
   width: 100%;
   padding: 0.75rem 1rem;
   font-size: 1rem;
@@ -122,15 +50,15 @@
   box-sizing: border-box;
 }
 
-.form-input:focus,
-.form-textarea:focus,
-.form-select:focus {
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
   outline: none;
   border-color: var(--accent-color);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
-.form-textarea {
+.form-group textarea {
   resize: vertical;
   min-height: 100px;
   line-height: 1.6;
@@ -142,8 +70,23 @@
   min-height: 400px;
 }
 
-/* Formatting Toolbar */
-.formatting-toolbar {
+.form-group select {
+  cursor: pointer;
+}
+
+/* Form Layout */
+.form-row {
+  margin-bottom: 0;
+}
+
+.form-row.two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* Markdown Toolbar */
+.markdown-toolbar {
   display: flex;
   gap: 4px;
   padding: 8px;
@@ -155,7 +98,7 @@
   margin-bottom: 0;
 }
 
-.toolbar-btn {
+.markdown-toolbar button {
   padding: 6px 8px;
   background: transparent;
   border: 1px solid transparent;
@@ -168,16 +111,16 @@
   color: var(--text-color);
 }
 
-.toolbar-btn:hover {
+.markdown-toolbar button:hover {
   background: var(--hover-bg, rgba(99, 102, 241, 0.1));
   border-color: var(--accent-color);
 }
 
-.toolbar-btn:active {
+.markdown-toolbar button:active {
   transform: scale(0.95);
 }
 
-.toolbar-btn .material-symbols-outlined {
+.markdown-toolbar button .material-symbols-outlined {
   font-size: 20px;
 }
 
@@ -189,19 +132,15 @@
   align-self: center;
 }
 
-.formatting-toolbar + .form-textarea {
+.markdown-toolbar + textarea {
   border-radius: 0 0 8px 8px;
   border-top-color: var(--surface-border);
 }
 
-.form-select {
-  cursor: pointer;
-}
-
 /* Error States */
-.form-input.error,
-.form-textarea.error,
-.form-select.error {
+.form-group input.error,
+.form-group textarea.error,
+.form-group select.error {
   border-color: #ef4444;
 }
 
@@ -222,7 +161,8 @@
   border-top: 1px solid var(--surface-border);
 }
 
-.btn {
+.btn-primary,
+.btn-secondary {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -236,7 +176,8 @@
   transition: all 0.2s ease;
 }
 
-.btn .material-symbols-outlined {
+.btn-primary .material-symbols-outlined,
+.btn-secondary .material-symbols-outlined {
   font-size: 1.25rem;
 }
 
@@ -263,51 +204,44 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .new-article-page {
-    padding: 1.5rem 1rem;
-  }
-
-  .new-article-title {
-    font-size: 2rem;
-  }
-
-  .article-form {
-    padding: 2rem 1.5rem;
-  }
-
-  .form-row {
+  .form-row.two-cols {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 0;
   }
 
   .form-actions {
     flex-direction: column-reverse;
   }
 
-  .btn {
+  .btn-primary,
+  .btn-secondary {
     width: 100%;
     justify-content: center;
   }
 }
 
 @media (max-width: 480px) {
-  .new-article-page {
-    padding: 1rem 0.75rem;
-  }
-
-  .new-article-title {
-    font-size: 1.75rem;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .article-form {
-    padding: 1.5rem 1rem;
-  }
-
-  .form-input,
-  .form-textarea,
-  .form-select {
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
     font-size: 0.9375rem;
+  }
+
+  .content-textarea {
+    min-height: 300px;
+    font-size: 0.875rem;
+  }
+
+  .markdown-toolbar {
+    gap: 2px;
+    padding: 6px;
+  }
+
+  .markdown-toolbar button {
+    padding: 4px 6px;
+  }
+
+  .markdown-toolbar button .material-symbols-outlined {
+    font-size: 18px;
   }
 }
