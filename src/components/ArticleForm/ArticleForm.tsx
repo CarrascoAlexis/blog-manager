@@ -22,6 +22,7 @@ interface ArticleFormProps {
     formData: ArticleFormData;                 // Initial form values
     categories: category[];                    // Available categories for dropdown
     onSubmit: (data: ArticleFormData) => void; // Callback when form is submitted
+    onSaveDraft?: (data: ArticleFormData) => Record<string, string> | null; // Optional callback to save as draft, returns validation errors or null
     onCancel?: () => void;                     // Optional callback when form is cancelled
     submitLabel?: string;                      // Custom submit button text
     showCancel?: boolean;                      // Whether to show cancel button
@@ -36,7 +37,8 @@ interface ArticleFormProps {
 function ArticleForm({ 
     formData: initialFormData, 
     categories, 
-    onSubmit, 
+    onSubmit,
+    onSaveDraft,
     onCancel,
     submitLabel = 'Publish Article',
     showCancel = false
@@ -225,6 +227,25 @@ function ArticleForm({
         onSubmit(formData);
     };
 
+    /**
+     * Handle saving draft
+     * Calls onSaveDraft callback and displays any validation errors
+     */
+    const handleSaveDraft = () => {
+        if (onSaveDraft) {
+            const validationErrors = onSaveDraft(formData);
+            if (validationErrors) {
+                // Display validation errors in the form
+                setErrors(validationErrors);
+                // Scroll to top of page to show errors
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                // Clear any existing errors on successful save
+                setErrors({});
+            }
+        }
+    };
+
     return (
         <form className="article-form" onSubmit={handleSubmit}>
             {/* Title field */}
@@ -406,9 +427,21 @@ function ArticleForm({
                         Cancel
                     </button>
                 )}
+                {/* Save Draft button */}
+                {onSaveDraft && (
+                    <button 
+                        type="button" 
+                        onClick={handleSaveDraft} 
+                        className="btn-outline"
+                        aria-label="Save as draft"
+                    >
+                        <span className="material-symbols-outlined" aria-hidden="true">draft</span>
+                        Save Draft
+                    </button>
+                )}
                 {/* Submit button with custom label */}
                 <button type="submit" className="btn-primary">
-                    <span className="material-symbols-outlined">publish</span>
+                    <span className="material-symbols-outlined" aria-hidden="true">publish</span>
                     {submitLabel}
                 </button>
             </div>

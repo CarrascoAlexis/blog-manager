@@ -49,6 +49,219 @@
   padding: 2.5rem;
 }
 
+/* Draft Selection */
+.draft-selection {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.drafts-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.drafts-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0 0 0.5rem 0;
+}
+
+.drafts-header p {
+  font-size: 1rem;
+  color: var(--muted-color);
+  margin: 0;
+}
+
+.drafts-section {
+  background: var(--surface-bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.drafts-section h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--surface-border);
+}
+
+.drafts-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.draft-item {
+  background: var(--bg-color);
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.2s ease;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.draft-item:hover {
+  border-color: var(--accent-color);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transform: translateY(-2px);
+}
+
+.draft-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.draft-info h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+
+.draft-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.draft-category {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+}
+
+.draft-date {
+  font-size: 0.875rem;
+  color: var(--muted-color);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.draft-excerpt {
+  font-size: 0.9375rem;
+  color: var(--muted-color);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.draft-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.draft-item button {
+  padding: 0.625rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.draft-item button:first-of-type {
+  background: var(--accent-color);
+  color: white;
+}
+
+.draft-item button:first-of-type:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+
+.draft-new-article-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 2rem;
+}
+
+.draft-new-article-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.draft-new-article-btn .material-symbols-outlined {
+  font-size: 1.25rem;
+}
+
+/* Draft Banner */
+.draft-banner {
+  background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+}
+
+.draft-banner .material-symbols-outlined {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.draft-banner-text {
+  flex: 1;
+}
+
+.draft-banner-text strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.draft-banner-text span {
+  font-size: 0.875rem;
+  opacity: 0.95;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .new-article-page {
@@ -61,6 +274,23 @@
 
   .form-container {
     padding: 2rem 1.5rem;
+  }
+
+  .draft-item {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .draft-actions {
+    justify-content: stretch;
+  }
+
+  .draft-item button {
+    flex: 1;
+  }
+
+  .drafts-section {
+    padding: 1.5rem;
   }
 }
 

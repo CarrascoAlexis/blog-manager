@@ -8,6 +8,8 @@ interface DeleteConfirmModalProps {
     articleTitle: string; // Title of article being deleted (for confirmation message)
     onClose: () => void; // Callback to close modal without deleting
     onConfirm: () => void; // Callback to confirm deletion
+    title?: string; // Optional custom title (defaults to "Delete Article?")
+    buttonText?: string; // Optional custom button text (defaults to "Delete Article")
 }
 
 /**
@@ -16,7 +18,14 @@ interface DeleteConfirmModalProps {
  * 
  * @param {DeleteConfirmModalProps} props - Component props
  */
-function DeleteConfirmModal({ isOpen, articleTitle, onClose, onConfirm }: DeleteConfirmModalProps) {
+function DeleteConfirmModal({ 
+    isOpen, 
+    articleTitle, 
+    onClose, 
+    onConfirm, 
+    title = "Delete Article?",
+    buttonText = "Delete Article"
+}: DeleteConfirmModalProps) {
     // Don't render anything if modal is closed
     if (!isOpen) return null;
 
@@ -38,7 +47,7 @@ function DeleteConfirmModal({ isOpen, articleTitle, onClose, onConfirm }: Delete
                 </div>
                 
                 {/* Modal title */}
-                <h2 id="delete-modal-title" className="delete-modal-title">Delete Article?</h2>
+                <h2 id="delete-modal-title" className="delete-modal-title">{title}</h2>
                 
                 {/* Confirmation message with article title */}
                 <p id="delete-modal-description" className="delete-modal-message">
@@ -55,7 +64,7 @@ function DeleteConfirmModal({ isOpen, articleTitle, onClose, onConfirm }: Delete
                     {/* Delete button - confirms deletion */}
                     <button onClick={onConfirm} className="btn-delete" aria-label={`Confirm deletion of ${articleTitle}`}>
                         <span className="material-symbols-outlined" aria-hidden="true">delete</span>
-                        Delete Article
+                        {buttonText}
                     </button>
                 </div>
             </div>

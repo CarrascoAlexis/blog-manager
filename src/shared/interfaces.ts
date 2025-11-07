@@ -34,6 +34,20 @@ export interface Article {
 }
 
 /**
+ * Interface representing a draft article
+ */
+export interface Draft {
+    id: string; // Unique identifier (UUID)
+    title: string; // Draft title
+    excerpt: string; // Short summary/preview
+    author: string; // Author name
+    category: category; // Associated category object
+    content?: string; // Draft content in Markdown format
+    createdAt: string; // Creation timestamp
+    updatedAt: string; // Last update timestamp
+}
+
+/**
  * Props interface for ArticleCard component
  */
 export interface ArticleCardProps {
