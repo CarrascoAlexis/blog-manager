@@ -1,73 +1,219 @@
-# React + TypeScript + Vite
+﻿# Blog Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and elegant blog article management tool built with React and TypeScript.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Project Description
 
-## React Compiler
+**Blog Manager** is a comprehensive web application designed to help you create, organize, and manage blog articles with ease. It provides a smooth and intuitive user experience with a rich set of features.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Key Features
 
-## Expanding the ESLint configuration
+- **Markdown Editor**: Write your articles using Markdown with an intuitive formatting toolbar featuring 12+ formatting options (headings, bold, italic, code blocks, lists, quotes, tables, links, and images)
+- **Category Management**: Organize your articles with customizable colored categories
+- **Advanced Filtering**: Search articles by title or content, filter by category, and sort by name or date
+- **Local Storage**: All data is stored locally in your browser using localStorage, ensuring complete privacy and offline functionality
+- **Customizable Themes**: Choose from 10+ different themes including light/dark modes, seasonal themes (Halloween, Christmas), and specialized modes (France, Solarized, High-Contrast, Sepia, Night Mode)
+- **CRUD Operations**: Full Create, Read, Update, Delete functionality for articles
+- **Responsive Design**: Optimized interface for all devices (desktop, tablet, and mobile)
+- **UUID-based Identification**: Each article has a unique identifier for reliable routing and management
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The application stores articles with rich metadata including title, excerpt, author, category, read time, creation date, and full Markdown content. All data persists in your browser without requiring any backend server.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Technologies
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+This project is built with modern web technologies:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Core Framework
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **React 18** - JavaScript library for building user interfaces
+- **TypeScript** - Typed superset of JavaScript for improved code quality
+- **Vite** - Next-generation frontend build tool for fast development
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Routing and State
+
+- **React Router v6** - Declarative routing for React applications
+- **Custom Hooks** - useLocalStorage hook for persistent state management
+- **Context API** - Theme management and global state
+
+### Styling
+
+- **CSS3** - Custom CSS with CSS Variables for theming
+- **Google Fonts** - Inter font family for modern typography
+- **Material Symbols** - Google Material Design icons
+
+### Development Tools
+
+- **ESLint** - Code linting and quality checks
+- **TypeScript Compiler** - Type checking and compilation
+- **Vite HMR** - Hot Module Replacement for instant feedback
+
+### Key Features Implementation
+
+- **Markdown Parsing** - Custom Markdown to HTML converter
+- **UUID Generation** - RFC4122 compliant unique identifiers
+- **LocalStorage API** - Browser-native persistent storage
+- **Responsive Design** - Mobile-first CSS with media queries
+
+---
+
+## Installation
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed on your system:
+
+- **Node.js** (version 18.x or higher)
+- **npm** (version 9.x or higher) or **yarn** (version 1.22.x or higher)
+
+### Steps
+
+1. Clone the repository
+
+\\\bash
+git clone https://github.com/CarrascoAlexis/blog-manager.git
+\\\
+
+2. Navigate to the project directory
+
+\\\bash
+cd blog-manager
+\\\
+
+3. Install dependencies
+
+\\\bash
+npm install
+\\\
+
+Or if you prefer yarn:
+
+\\\bash
+yarn install
+\\\
+
+---
+
+## Run the Project
+
+### Development Mode
+
+To run the project in development mode with hot module replacement:
+
+\\\bash
+npm run dev
+\\\
+
+Or with yarn:
+
+\\\bash
+yarn dev
+\\\
+
+The application will start on http://localhost:5173 (default Vite port). Open your browser and navigate to this URL to view the application.
+
+### Build for Production
+
+To create an optimized production build:
+
+\\\bash
+npm run build
+\\\
+
+Or with yarn:
+
+\\\bash
+yarn build
+\\\
+
+The built files will be generated in the dist directory.
+
+### Preview Production Build
+
+To preview the production build locally:
+
+\\\bash
+npm run preview
+\\\
+
+Or with yarn:
+
+\\\bash
+yarn preview
+\\\
+
+### Linting
+
+To run ESLint and check for code quality issues:
+
+\\\bash
+npm run lint
+\\\
+
+---
+
+## Author
+
+**Alexis Carrasco**
+
+- GitHub: [@CarrascoAlexis](https://github.com/CarrascoAlexis)
+- Project Repository: [blog-manager](https://github.com/CarrascoAlexis/blog-manager)
+
+---
+
+## Additional Information
+
+### Project Structure
+
+The project follows a modular architecture with clear separation of concerns:
+
+- src/components/ - Reusable React components (ArticleCard, ArticleForm, SearchBar, etc.)
+- src/pages/ - Page-level components (Home, Articles, Article, NewArticle)
+- src/contexts/ - React Context providers for global state
+- src/hooks/ - Custom React hooks (useLocalStorage)
+- src/shared/ - Shared utilities, types, and interfaces
+- src/styles/ - Global styles and theme definitions
+
+### Features Overview
+
+**Article Management**
+
+- Create new articles with rich Markdown content
+- Edit existing articles with inline editing
+- Delete articles with confirmation modal
+- View articles with formatted content rendering
+
+**Search and Filter**
+
+- Real-time search across titles and excerpts
+- Filter by category
+- Sort by name (A-Z, Z-A) or date (newest/oldest)
+- Combined filtering for precise results
+
+**Theme System**
+
+- 10+ built-in themes
+- Seasonal decorations (animated pumpkins, snowflakes)
+- Theme persistence across sessions
+- Smooth theme transitions
+
+**Data Persistence**
+
+- All articles saved in localStorage
+- Custom categories with colors
+- Theme preferences
+- No server required
+
+### License
+
+This project is created as part of an educational assignment.
+
+### Acknowledgments
+
+- Built with React (https://react.dev/)
+- Powered by Vite (https://vitejs.dev/)
+- Icons from Material Symbols (https://fonts.google.com/icons)
+- Fonts from Google Fonts (https://fonts.google.com/)
