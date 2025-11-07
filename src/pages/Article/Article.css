@@ -1,0 +1,65 @@
+/*
+  Article.css — Article Detail Page styles
+
+  Purpose:
+  - Page layout for article detail view
+  - Back navigation styling
+*/
+
+/* Article Page Container */
+.article-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* Back Link */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted-color);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  transition: all 0.2s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.back-link:hover {
+  color: var(--accent-color);
+  background: var(--active-bg);
+  transform: translateX(-4px);
+}
+
+.back-link .material-symbols-outlined {
+  font-size: 1.25rem;
+}
+
+/* Article Detail Container */
+.article-detail {
+  background: var(--surface-bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  padding: 3rem;
+  margin-bottom: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .article-page {
+    padding: 1.5rem 1rem;
+  }
+
+  .article-detail {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .article-detail {
+    padding: 1.5rem 1rem;
+  }
+}

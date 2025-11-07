@@ -1,0 +1,37 @@
+/*
+  ArticleNotFound.css — Article Not Found component styles
+
+  Purpose:
+  - Styles for 404 article not found state
+*/
+
+.article-not-found {
+  text-align: center;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.not-found-icon {
+  font-size: 5rem !important;
+  color: var(--muted-color);
+  opacity: 0.3;
+}
+
+.article-not-found h1 {
+  font-size: 2rem;
+  margin: 0;
+  color: var(--text-color);
+}
+
+.article-not-found p {
+  font-size: 1.125rem;
+  color: var(--muted-color);
+  margin: 0;
+}
+
+.article-not-found .back-link {
+  margin-top: 1rem;
+}

@@ -126,6 +126,20 @@
   color: var(--accent-color);
 }
 
+/* New Article Button */
+.header-nav-link.new-article-btn {
+  background: var(--accent-color);
+  color: white;
+  font-weight: 600;
+}
+
+.header-nav-link.new-article-btn:hover {
+  background: var(--accent-color);
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
 /* Theme Switcher */
 .header-theme-switcher {
   position: relative;

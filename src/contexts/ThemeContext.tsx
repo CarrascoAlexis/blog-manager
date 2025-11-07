@@ -19,6 +19,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
         const saved = localStorage.getItem('musicVolume');
         return saved ? parseFloat(saved) : 0.3;
     });
+    const [isTransitioning, setIsTransitioning] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     useEffect(() => {
@@ -65,14 +66,24 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     };
 
     const toggleTheme = (newTheme: ThemeMode) => {
+        // Trigger transition animation
+        setIsTransitioning(true);
+        
+        // Change theme
         setTheme(newTheme);
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
+        
+        // Remove transition class after animation completes
+        setTimeout(() => {
+            setIsTransitioning(false);
+        }, 500);
     };
 
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme, volume, setVolume }}>
             {children}
+            {isTransitioning && <div className="theme-transition-overlay" />}
         </ThemeContext.Provider>
     );
 }

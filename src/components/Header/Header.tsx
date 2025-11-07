@@ -52,6 +52,10 @@ function Header() {
                     <span className="material-symbols-outlined">article</span>
                     <span>Articles</span>
                 </Link>
+                <Link to="/new" className="header-nav-link new-article-btn" onClick={closeMobileMenu}>
+                    <span className="material-symbols-outlined">add</span>
+                    <span>New Article</span>
+                </Link>
                 <div className="header-theme-switcher">
                     <select
                         value={theme}

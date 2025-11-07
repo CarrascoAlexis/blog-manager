@@ -1,0 +1,87 @@
+/*
+  ArticleHeader.css — Article Header component styles
+
+  Purpose:
+  - Styles for article header (title, category, meta info)
+*/
+
+/* Article Header */
+.article-header {
+  border-bottom: 2px solid var(--surface-border);
+  padding-bottom: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.article-category-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.article-detail-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 1rem 0;
+  color: var(--text-color);
+}
+
+.article-detail-excerpt {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--muted-color);
+  margin: 0 0 2rem 0;
+}
+
+.article-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  font-size: 0.9375rem;
+  color: var(--muted-color);
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.meta-item .material-symbols-outlined {
+  font-size: 1.25rem;
+  color: var(--accent-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .article-detail-title {
+    font-size: 2rem;
+  }
+
+  .article-detail-excerpt {
+    font-size: 1.125rem;
+  }
+
+  .article-detail-meta {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .article-detail-title {
+    font-size: 1.75rem;
+  }
+
+  .article-detail-meta {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+}

@@ -107,3 +107,516 @@
     font-size: 0.7rem;
   }
 }
+
+/* Halloween Decorations */
+.halloween-pumpkins {
+  position: absolute;
+  top: -85px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  z-index: 901;
+}
+
+.pumpkin {
+  filter: drop-shadow(0 4px 8px rgba(255, 107, 53, 0.4));
+  animation: pumpkinBounce 3s ease-in-out infinite;
+  line-height: 0.8;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.1s ease;
+}
+
+.pumpkin:hover {
+  transform: scale(1.1) rotate(var(--pumpkin-rotation, 0deg));
+}
+
+.pumpkin.pumpkin-clicked {
+  animation: pumpkinScare 0.8s ease-out;
+}
+
+.pumpkin-1 {
+  font-size: 2.8rem;
+  animation-delay: 0s;
+  --pumpkin-rotation: -5deg;
+  transform: rotate(-5deg);
+  margin-bottom: -12px;
+  margin-left: -5px;
+}
+
+.pumpkin-2 {
+  font-size: 2.4rem;
+  animation-delay: 1s;
+  --pumpkin-rotation: 3deg;
+  transform: rotate(3deg);
+  margin-bottom: -10px;
+  margin-right: -8px;
+}
+
+.pumpkin-3 {
+  font-size: 2rem;
+  animation-delay: 2s;
+  --pumpkin-rotation: -8deg;
+  transform: rotate(-8deg);
+  margin-left: 5px;
+}
+
+@keyframes pumpkinBounce {
+  0%, 100% {
+    transform: translateY(0) rotate(var(--pumpkin-rotation, 0deg));
+  }
+  25% {
+    transform: translateY(-8px) rotate(calc(var(--pumpkin-rotation, 0deg) - 3deg));
+  }
+  50% {
+    transform: translateY(0) rotate(var(--pumpkin-rotation, 0deg));
+  }
+  75% {
+    transform: translateY(-6px) rotate(calc(var(--pumpkin-rotation, 0deg) + 2deg));
+  }
+}
+
+@keyframes pumpkinScare {
+  0% {
+    transform: scale(1) rotate(var(--pumpkin-rotation, 0deg));
+    filter: drop-shadow(0 4px 8px rgba(255, 107, 53, 0.4)) brightness(1);
+  }
+  15% {
+    transform: scale(1.3) rotate(calc(var(--pumpkin-rotation, 0deg) - 20deg));
+    filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.8)) 
+            drop-shadow(0 0 40px rgba(255, 69, 0, 0.6)) 
+            brightness(1.5);
+  }
+  25% {
+    transform: scale(0.9) rotate(calc(var(--pumpkin-rotation, 0deg) + 15deg));
+    filter: drop-shadow(0 0 25px rgba(255, 107, 53, 0.9)) brightness(1.3);
+  }
+  40% {
+    transform: scale(1.4) rotate(calc(var(--pumpkin-rotation, 0deg) - 25deg)) translateY(-15px);
+    filter: drop-shadow(0 0 30px rgba(255, 107, 53, 1)) 
+            drop-shadow(0 0 50px rgba(255, 69, 0, 0.8)) 
+            brightness(1.8) hue-rotate(20deg);
+  }
+  55% {
+    transform: scale(1.1) rotate(calc(var(--pumpkin-rotation, 0deg) + 10deg)) translateY(-5px);
+    filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.7)) brightness(1.4);
+  }
+  70% {
+    transform: scale(1.2) rotate(calc(var(--pumpkin-rotation, 0deg) - 15deg));
+    filter: drop-shadow(0 0 15px rgba(255, 107, 53, 0.6)) brightness(1.2);
+  }
+  85% {
+    transform: scale(0.95) rotate(calc(var(--pumpkin-rotation, 0deg) + 5deg));
+    filter: drop-shadow(0 4px 10px rgba(255, 107, 53, 0.5)) brightness(1.1);
+  }
+  100% {
+    transform: scale(1) rotate(var(--pumpkin-rotation, 0deg));
+    filter: drop-shadow(0 4px 8px rgba(255, 107, 53, 0.4)) brightness(1);
+  }
+}
+
+/* Spider webs in corners */
+.spider-web {
+  position: fixed;
+  width: 150px;
+  height: 150px;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.6;
+}
+
+.spider-web.top-left {
+  top: 60px;
+  left: 0;
+}
+
+.spider-web.top-right {
+  top: 60px;
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.web-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Spiders on webs */
+.spider {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #1a1a1a;
+  border-radius: 50%;
+  box-shadow: 
+    0 0 0 8px #1a1a1a,
+    -12px -6px 0 2px #1a1a1a,
+    12px -6px 0 2px #1a1a1a,
+    -12px 6px 0 2px #1a1a1a,
+    12px 6px 0 2px #1a1a1a;
+}
+
+.spider::before,
+.spider::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #ff0000;
+  border-radius: 50%;
+  top: 6px;
+}
+
+.spider::before {
+  left: 4px;
+}
+
+.spider::after {
+  right: 4px;
+}
+
+.spider-1 {
+  top: 40%;
+  left: 30%;
+  animation: spiderMove1 8s ease-in-out infinite;
+}
+
+.spider-2 {
+  top: 50%;
+  right: 35%;
+  animation: spiderMove2 10s ease-in-out infinite;
+}
+
+@keyframes spiderMove1 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(-10px, 15px) rotate(-15deg);
+  }
+  50% {
+    transform: translate(-5px, 25px) rotate(10deg);
+  }
+  75% {
+    transform: translate(-15px, 10px) rotate(-5deg);
+  }
+}
+
+@keyframes spiderMove2 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  30% {
+    transform: translate(10px, 20px) rotate(15deg);
+  }
+  60% {
+    transform: translate(5px, 30px) rotate(-10deg);
+  }
+  80% {
+    transform: translate(15px, 15px) rotate(5deg);
+  }
+}
+
+/* Mobile adjustments for Halloween decorations */
+@media (max-width: 768px) {
+  .halloween-pumpkins {
+    top: -68px;
+    left: 15px;
+  }
+
+  .pumpkin-1 {
+    font-size: 2.2rem;
+    margin-bottom: -10px;
+  }
+
+  .pumpkin-2 {
+    font-size: 1.9rem;
+    margin-bottom: -8px;
+  }
+
+  .pumpkin-3 {
+    font-size: 1.6rem;
+  }
+
+  .spider-web {
+    width: 100px;
+    height: 100px;
+  }
+
+  .spider {
+    width: 15px;
+    height: 15px;
+    box-shadow: 
+      0 0 0 6px #1a1a1a,
+      -10px -5px 0 1px #1a1a1a,
+      10px -5px 0 1px #1a1a1a,
+      -10px 5px 0 1px #1a1a1a,
+      10px 5px 0 1px #1a1a1a;
+  }
+}
+
+@media (max-width: 480px) {
+  .halloween-pumpkins {
+    top: -52px;
+    left: 10px;
+  }
+
+  .pumpkin-1 {
+    font-size: 1.7rem;
+    margin-bottom: -8px;
+  }
+
+  .pumpkin-2 {
+    font-size: 1.5rem;
+    margin-bottom: -6px;
+  }
+
+  .pumpkin-3 {
+    font-size: 1.2rem;
+  }
+
+  .spider-web {
+    width: 80px;
+    height: 80px;
+  }
+
+  .spider {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* Christmas Decorations */
+.christmas-garland {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  height: 80px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.garland-strand {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    #2d6a3a 20%, 
+    #1f4d28 50%, 
+    #2d6a3a 80%, 
+    transparent 100%);
+  border-radius: 0 0 50% 50%;
+  box-shadow: 0 2px 8px rgba(45, 106, 58, 0.4);
+}
+
+.garland-strand::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 30px,
+    rgba(255, 215, 0, 0.3) 30px,
+    rgba(255, 215, 0, 0.3) 35px
+  );
+}
+
+.ornament {
+  position: absolute;
+  top: 8px;
+  font-size: 1.8rem;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+  animation: ornamentSwing 3s ease-in-out infinite;
+}
+
+.ornament-1 {
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.ornament-2 {
+  left: 30%;
+  animation-delay: 0.5s;
+}
+
+.ornament-3 {
+  left: 45%;
+  animation-delay: 1s;
+}
+
+.ornament-4 {
+  left: 60%;
+  animation-delay: 1.5s;
+}
+
+.ornament-5 {
+  left: 75%;
+  animation-delay: 2s;
+}
+
+.ornament-6 {
+  left: 88%;
+  animation-delay: 2.5s;
+}
+
+@keyframes ornamentSwing {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  25% {
+    transform: rotate(-8deg) translateY(-3px);
+  }
+  50% {
+    transform: rotate(0deg) translateY(0);
+  }
+  75% {
+    transform: rotate(8deg) translateY(-3px);
+  }
+}
+
+/* Christmas Tree */
+.christmas-tree {
+  position: absolute;
+  bottom: 56px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  z-index: 901;
+  filter: drop-shadow(0 4px 10px rgba(45, 106, 58, 0.5));
+}
+
+.tree-star {
+  font-size: 1.5rem;
+  margin-bottom: -10px;
+  z-index: 2;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.2s ease;
+  animation: twinkleStar 2s ease-in-out infinite;
+}
+
+.tree-star:hover {
+  transform: scale(1.15);
+}
+
+.tree-star.star-clicked {
+  animation: starClickExplosion 1s ease-out;
+}
+
+@keyframes starClickExplosion {
+  0% {
+    transform: scale(1) rotate(0deg);
+    filter: brightness(1) drop-shadow(0 0 5px gold);
+  }
+  20% {
+    transform: scale(1.8) rotate(144deg);
+    filter: brightness(2) drop-shadow(0 0 20px gold) drop-shadow(0 0 40px yellow);
+  }
+  40% {
+    transform: scale(1.5) rotate(288deg);
+    filter: brightness(1.8) drop-shadow(0 0 25px gold) drop-shadow(0 0 50px yellow);
+  }
+  60% {
+    transform: scale(1.6) rotate(432deg);
+    filter: brightness(2.2) drop-shadow(0 0 30px gold) drop-shadow(0 0 60px yellow);
+  }
+  80% {
+    transform: scale(1.3) rotate(576deg);
+    filter: brightness(1.5) drop-shadow(0 0 15px gold);
+  }
+  100% {
+    transform: scale(1) rotate(720deg);
+    filter: brightness(1);
+  }
+}
+
+.tree-top {
+  font-size: 4rem;
+  line-height: 0.8;
+  animation: treeGlow 3s ease-in-out infinite;
+}
+
+@keyframes twinkleStar {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    filter: brightness(1.5);
+  }
+}
+
+@keyframes treeGlow {
+  0%, 100% {
+    filter: brightness(1) drop-shadow(0 0 5px rgba(45, 106, 58, 0.5));
+  }
+  50% {
+    filter: brightness(1.1) drop-shadow(0 0 15px rgba(45, 106, 58, 0.8));
+  }
+}
+
+/* Mobile adjustments for Christmas decorations */
+@media (max-width: 768px) {
+  .christmas-garland {
+    height: 60px;
+  }
+
+  .ornament {
+    font-size: 1.4rem;
+  }
+
+  .christmas-tree {
+    left: 15px;
+  }
+
+  .tree-star {
+    font-size: 1.2rem;
+    margin-bottom: -8px;
+  }
+
+  .tree-top {
+    font-size: 3.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .christmas-garland {
+    height: 50px;
+  }
+
+  .garland-strand {
+    height: 6px;
+  }
+
+  .ornament {
+    font-size: 1.2rem;
+    top: 6px;
+  }
+
+  .christmas-tree {
+    left: 10px;
+  }
+
+  .tree-star {
+    font-size: 1rem;
+    margin-bottom: -6px;
+  }
+
+  .tree-top {
+    font-size: 2.5rem;
+  }
+}

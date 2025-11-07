@@ -12,6 +12,30 @@
     --toggle-hover-bg: #f3f4f6;
     --header-bg: #6366f1;
     --footer-bg: #ffffff;
+    
+    /* Animation settings */
+    --theme-transition-duration: 0.5s;
+    --theme-transition-timing: ease-in-out;
+}
+
+/* Apply smooth transitions to all elements for theme changes */
+*,
+*::before,
+*::after {
+    transition: 
+        background-color var(--theme-transition-duration) var(--theme-transition-timing),
+        color var(--theme-transition-duration) var(--theme-transition-timing),
+        border-color var(--theme-transition-duration) var(--theme-transition-timing),
+        box-shadow var(--theme-transition-duration) var(--theme-transition-timing);
+}
+
+/* Disable transitions for elements that shouldn't animate */
+input,
+textarea,
+button:active,
+select,
+.no-transition {
+    transition: none !important;
 }
 
 [data-theme='light'] {
@@ -58,7 +82,7 @@
 
 [data-theme='christmass'],
 [data-theme='christmas'] {
-    --bg-color: red /*#fffaf0*/; /* warm cream */
+    --bg-color: #fffaf0; /* warm cream */
     --text-color: #062b14; /* deep evergreen */
     --muted-color: #2d6a3a; /* muted green */
     --accent-color: #c4001d; /* bright festive red */
@@ -265,5 +289,40 @@ body {
     100% {
         transform: translateY(110vh);
         opacity: 0.8;
+    }
+}
+
+/* Theme transition overlay animation */
+.theme-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-color);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* Add subtle scale animation to body during theme transition */
+body {
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+}
+
+[data-theme] {
+    animation: themeChange 0.5s ease-in-out;
+}
+
+@keyframes themeChange {
+    0% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(0.95);
+    }
+    100% {
+        filter: brightness(1);
     }
 }
